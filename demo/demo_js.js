@@ -1,13 +1,57 @@
 /* Javascript for Cluster Flow online demo */
 
+// Helper functions
 function nl2br (str, is_xhtml) {
     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
 }
+function nextStep(){
+    if($('#demo_instructions ol > li:last-child').is(':hidden')){
+        $('#demo_instructions').addClass('well-success');
+        setTimeout(function(){
+            $('#demo_instructions').removeClass('well-success');
+            $('#demo_instructions ol > li:visible').slideUp().next().slideDown();
+        }, 500);
+    }
+    curr_step += 1;
+}
+function stepTwoCheck(cmd){
+    if(completed_commands.indexOf(cmd) == -1){
+        completed_commands.push(cmd);
+    }
+    if(curr_step == 2 && completed_commands.indexOf('--pipelines') >= 0 && completed_commands.indexOf('--modules') >= 0 && completed_commands.indexOf('--genomes') >= 0){
+        nextStep();
+    }
+}
+
+// Logging vars
+var curr_step = 1;
+var completed_commands = [];
 
 
 // Start when page is loaded
 $( document ).ready( function() {
+
+    // Label step numbers
+    var inst_num = 1;
+    $('#demo_instructions ol > li').each(function(){
+        $(this).prepend('<h4>Step '+inst_num+'<h4>');
+        inst_num += 1;
+    });
+
+    // Help switch
+    $('.help-toggle button').click(function(){
+        $('.help-toggle button').toggleClass('active');
+        if($('.btn-on').hasClass('active')){
+            $('.btn-on').removeClass('btn-default').addClass('btn-success');
+            $('.btn-off').removeClass('btn-warning').addClass('btn-default');
+            $('#demo_instructions ol ul').slideDown();
+        } else {
+            $('.btn-on').addClass('btn-default').removeClass('btn-success');
+            $('.btn-off').addClass('btn-warning').removeClass('btn-default');
+            $('#demo_instructions ol ul').slideUp();
+        }
+    });
 
     // Using depreciated jQuery, so let's do this the hard way..
     // Deliberately breaking indentation else it'd be silly.
@@ -26,7 +70,6 @@ $( document ).ready( function() {
         output['rm_text'] = text.split("\n");
     $.get("output/rm_page.html", function(text) {
         output['rm_page'] = text;
-
 
         // Launch the WTerm plugin
         $('#demo_terminal').wterm({
@@ -63,8 +106,10 @@ $( document ).ready( function() {
             if(tokens[0] == '--help'){
               tokens.shift();
               if(tokens.length == 0 || tokens[0] == ''){
+                if(curr_step == 1){ nextStep(); }
                 return output['help'];
               } else if(tokens[0] == 'fastq_bismark'){
+                if(curr_step == 3){ nextStep(); }
                 return output['help_fastq_bismark']
               } else if(modules.indexOf(tokens[0]) >= 0 || pipelines.indexOf(tokens[0]) >= 0){
                 return "Apologies, not implemented for this demo";
@@ -74,14 +119,17 @@ $( document ).ready( function() {
             }
             // cf --pipelines
             if(tokens[0] == '--pipelines'){
+                stepTwoCheck('--pipelines');
                 return output['pipelines'];
             }
             // cf --modules
             if(tokens[0] == '--modules'){
+                stepTwoCheck('--modules');
                 return output['modules'];
             }
             // cf --genomes
             if(tokens[0] == '--genomes'){
+                stepTwoCheck('--genomes');
                 return output['genomes'];
             }
 
@@ -208,7 +256,7 @@ $( document ).ready( function() {
         // gravity / fall
         var gravity = function (tokens) {
           $('body').jGravity({
-            target: 'h1, ol, #demo_terminal',
+            target: 'h1, ol, #demo_terminal, .well, p, label, .btn-group',
             depth: 50,
           });
         }

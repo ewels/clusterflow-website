@@ -42,45 +42,58 @@
 <div class="container">
 
   <h1>Cluster Flow Demo</h1>
+  <p>You can try out some basic Cluster Flow commands in the demo terminal below.
+    Don't worry, you can't do any damage <abbr title="Go on - do your worst!">;)</abbr></p>
+  <div id="demo_instructions" class="well">
+    <div class="help-toggle pull-right">
+      <label>Help</label>
+      <div class="btn-group btn-toggle">
+        <button class="btn btn-xs btn-on btn-default">Show</button>
+        <button class="btn btn-xs btn-off btn-warning active">Hide</button>
+      </div>
+    </div>
 
-  <ol id="demo_instructions">
-    <li>First, let's remind ourselves of the commands
-      <ul>
-        <li><code>cf --help</code></li>
-      </ul>
-    </li>
-    <li>Which pipelines do we have available?
-      <ul>
-        <li><code>cf --pipelines</code></li>
-        <li><code>cf --modules</code></li>
-        <li><code>cf --genomes</code></li>
-      </ul>
-    </li>
-    <li>Find more information about the 'fastq_bismark' pipeline
-      <ul>
-        <li><code>cf --help [pipeline]</code></li>
-        <li><code>cf --help [module]</code></li>
-      </ul>
-    </li>
-    <li>Add a new reference genome
-      <ul>
-        <li><code>cf --add_genome</code></li>
-      </ul>
-    </li>
-    <li>Check your files and run the pipeline!
-      <ul>
-        <li><code>ls</code> (list files)</li>
-        <li><code>cf --genome GRCh37 fastq_bismark *.fastq.gz</code></li>
-      </ul>
-    </li>
-    <li>Monitor the pipeline's progress
-      <ul>
-        <li><code>cf --qstat</code></li>
-        <li><code>qs</code> (usual alias for above)</li>
-      </ul>
-    </li>
-    <li>Check the e-mail when the pipeline finishes!</li>
-  </ol>
+    <ol>
+      <li>First, let's remind ourselves of the commands - try to display the Cluster Flow help.
+        <ul>
+          <li><code>cf --help</code></li>
+        </ul>
+      </li>
+      <li>Which pipelines, modules and reference genomes do we have available?
+        <ul>
+          <li><code>cf --pipelines</code></li>
+          <li><code>cf --modules</code></li>
+          <li><code>cf --genomes</code></li>
+        </ul>
+      </li>
+      <li>Find more information about the 'fastq_bismark' pipeline
+        <ul>
+          <li><code>cf --help [pipeline]</code></li>
+          <li><code>cf --help [module]</code></li>
+        </ul>
+      </li>
+      <li>Add a new reference genome
+        <ul>
+          <li><code>cf --add_genome</code></li>
+        </ul>
+      </li>
+      <li>Check your files and run the pipeline!
+        <ul>
+          <li><code>ls</code> (list files)</li>
+          <li><code>cf --genome GRCh37 fastq_bismark *.fastq.gz</code></li>
+        </ul>
+      </li>
+      <li>Monitor the pipeline's progress
+        <ul>
+          <li><code>cf --qstat</code></li>
+          <li><code>qs</code> (usual alias for above)</li>
+        </ul>
+      </li>
+      <li>Check the e-mail when the pipeline finishes!</li>
+      <li>That's it for this demo - feel free to have a <abbr title="Anyone for some pong?">play</abbr>.
+        Better still, <a href="../">grab a copy of Cluster Flow</a> and try it for real!</li>
+    </ol>
+  </div>
 
   <div id="demo_terminal"></div>
 
