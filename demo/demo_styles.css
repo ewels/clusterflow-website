@@ -45,7 +45,7 @@ h1 img {
     height: 500px;
     border-radius: 6px;
     background-color: #002b36;
-    color: #657b83;
+    color: #93a1a1;
     font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
     border: 1px solid #ccc;
     font-size: 14px;
@@ -58,6 +58,9 @@ h1 img {
     border: none;
     color: inherit;
     overflow-x: auto;
+}
+#demo_terminal pre {
+    font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
 }
 #demo_terminal span, #demo_terminal input {
     color: #859900;

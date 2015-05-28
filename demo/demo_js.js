@@ -86,7 +86,7 @@ $( document ).ready( function() {
     output_files = ['help', 'pipelines', 'modules', 'genomes', 'launch_pipeline'];
     commands = ['bash', 'cap', 'cat', 'cf', 'chmod', 'clear', 'comicsans', 'cp', 'date', 'domainname',
                 'echo', 'go', 'gotostep', 'gravity', 'kill', 'less', 'link', 'ln', 'ls', 'mkdir', 'more', 'mv',
-                'pong', 'pwd', 'rm', 'rmdir', 'unlink'];
+                'pong', 'pwd', 'qs', 'rm', 'rmdir', 'unlink'];
 
     // Load output
     output = [];
