@@ -1,5 +1,8 @@
 /* Styles specifically for the Cluster Flow demo */
 
+h1 img {
+  max-width: 200px;
+}
 #demo_instructions ol {
   padding: 0;
   margin: 0;
@@ -31,9 +34,6 @@
   border-color: #d6e9c6;
 }
 
-.container {
-  height: 1000px;
-}
 #demo_terminal {
     display: block;
     overflow-x: auto;;
@@ -47,7 +47,7 @@
     color: #657b83;
     font-family: 'Monaco', monospace;
     border: 1px solid #ccc;
-    font-size: 12px;
+    font-size: 14px;
 }
 #demo_terminal pre {
     background-color: transparent;
@@ -86,6 +86,21 @@
     width: 75%;
 }
 
+#email_notification {
+  position:absolute;
+  bottom:0;
+  right: 30px;
+  padding: 20px 30px;
+  background-color: #d9edf7;
+  border: 2px solid #bce8f1;
+  color: #31708f;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: none;
+  font-size: 2em;
+  font-weight:bold;
+}
+
 
 
 /* Easter Eggs */
@@ -116,3 +131,17 @@
 #demo_terminal.pong { background-color: #002b36 !important; }
 .pong .score { font-family: 'Monaco', monospace !important; }
 .pong .msg:after { content: ' reload page to return to demo.' }
+
+#demo_terminal.csans {
+  font-size: 1.5em;
+  background-color: #FF00FF;
+  border: 10px dashed yellow;
+}
+#demo_terminal.csans, #demo_terminal.csans span, #demo_terminal.csans input, #demo_terminal.csans pre,
+body.csans, body.csans .well {
+  font-family: "Comic Sans MS", cursive, sans-serif !important;
+  color: yellow !important;
+}
+body.csans, body.csans .well {
+  background-color: blue !important;
+}

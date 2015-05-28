@@ -5,7 +5,7 @@ function nl2br (str, is_xhtml) {
     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
 }
-function nextStep(){
+function nextStep(skipanim){
     if($('#demo_instructions ol > li:last-child').is(':hidden')){
         $('#demo_instructions ol > li:visible .step-progress .fa').removeClass('fa-square-o').addClass('fa-check-square-o');
         $('#demo_instructions').addClass('well-success');
@@ -15,6 +15,12 @@ function nextStep(){
         }, 500);
     }
     curr_step += 1;
+    if(curr_step == 7){
+        setTimeout(function(){
+            $('#email_notification').slideDown();
+
+        }, 1200);
+    }
 }
 function stepCheck(cmd){
     if(completed_commands.indexOf(cmd) == -1){
@@ -44,6 +50,7 @@ $(document).on('DOMNodeInserted', function(e) {
 // Logging vars
 var curr_step = 1;
 var completed_commands = [];
+var running_job = false;
 
 
 // Start when page is loaded
@@ -76,17 +83,22 @@ $( document ).ready( function() {
                  'fastq_star', 'fastq_tophat', 'sra_bismark', 'sra_bismark_RRBS', 'sra_bowtie',
                  'sra_bowtie1', 'sra_bowtie2', 'sra_bowtie_miRNA', 'sra_hicup', 'sra_pbat',
                  'sra_tophat', 'sra_trim', 'trim_bowtie_miRNA', 'trim_tophat'];
-    basic_commands = ['help', 'pipelines', 'modules', 'genomes'];
+    output_files = ['help', 'pipelines', 'modules', 'genomes', 'launch_pipeline'];
+    commands = ['bash', 'cap', 'cat', 'cf', 'chmod', 'clear', 'comicsans', 'cp', 'date', 'domainname',
+                'echo', 'go', 'gotostep', 'gravity', 'kill', 'less', 'link', 'ln', 'ls', 'mkdir', 'more', 'mv',
+                'pong', 'pwd', 'rm', 'rmdir', 'unlink'];
 
     // Load output
     output = [];
     deferred = [];
-    $.each(basic_commands, function(i, file){
+    $.each(output_files, function(i, file){
         deferred.push( $.get("output/"+file+".txt", function(text) { output[file] = '<pre>'+text+'<pre>'; }) );
     });
     $.each(modules.concat(pipelines), function(i, file){
         deferred.push( $.get("output/help/cf_help_"+file+".txt", function(text) { output['help_'+file] = '<pre>'+text+'<pre>'; }) );
     });
+    deferred.push( $.get("output/qstat.html", function(text) { output['qstat'] = '<pre>'+text+'</pre>'; }) );
+    deferred.push( $.get("output/email.html", function(text) { output['email'] = text; }) );
     deferred.push( $.get("output/rm_text.txt", function(text) { output['rm_text'] = text.split("\n"); }) );
     deferred.push( $.get("output/rm_page.html", function(text) { output['rm_page'] = text; }) );
 
@@ -100,6 +112,13 @@ $( document ).ready( function() {
             AUTOCOMPLETE: false
         });
 
+        // Prefill the email modal
+        $('#email .modal-body').html(output['email']);
+
+        // E-mail modal has been shown
+        $('#email').on('hidden.bs.modal', function (e) {
+            if(curr_step == 7){ nextStep(); }
+        });
 
 
         // Write the cf terminal function
@@ -130,19 +149,28 @@ $( document ).ready( function() {
                 }
             }
             // cf --pipelines
-            if(tokens[0] == '--pipelines'){
+            if(tokens.indexOf('--pipelines') >= 0){
                 stepCheck('--pipelines');
                 return output['pipelines'];
             }
             // cf --modules
-            if(tokens[0] == '--modules'){
+            if(tokens.indexOf('--modules') >= 0){
                 stepCheck('--modules');
                 return output['modules'];
             }
             // cf --genomes
-            if(tokens[0] == '--genomes'){
+            if(tokens.indexOf('--genomes') >= 0){
                 stepCheck('--genomes');
                 return output['genomes'];
+            }
+            // cf --add_genome
+            if(tokens.indexOf('--add_genome') >= 0){
+                if(curr_step == 4){ nextStep(); }
+                return "<p>Great! Normally you'll get an interactive wizard here,<br>which will lead you through the process of adding your<br>reference genome locatios to your genomes.config file.</p><p>I'm afraid you'll have to download and install<br>Cluster Flow to try this out.</p>";
+            }
+            // cf --qstat
+            if(tokens.indexOf('--qstat') >= 0){
+                return qstat();
             }
 
             //////// PARAMETERS
@@ -160,10 +188,45 @@ $( document ).ready( function() {
                 tokens.splice(i-1, 2);
             }
 
+
             ///////// EXECUTION
             // Nothing given
             if(tokens.length == 0 || tokens[0] == ''){
                 return "Error - no pipeline specified. Use --help for instructions.<br>Syntax: cf [flags] pipeline_name file_1 file_2..";
+            }
+            // Kicking off a pipeline
+            if(pipelines.indexOf(tokens[0]) >= 0 || modules.indexOf(tokens[0]) >= 0){
+                if(tokens.length == 1){
+                    return 'Error - no input files specified. Use --help for instructions.<br>Syntax: cf [flags] pipeline_name file_1 file_2..';
+                } else {
+                    var launch_txt = output['launch_pipeline'];
+                    launch_txt = launch_txt.replace('{{pipeline}}', tokens[0]) + '<br>';
+                    // Get pipeline
+                    if(pipelines.indexOf(tokens[0]) >= 0){
+                        $.each(output['help_'+tokens[0]].split("\n"), function(i, val){
+                            if(val.trim().substr(0, 1) == '#' || val.trim().substr(0, 1) == '>'){
+                                launch_txt += val+'<br>';
+                            }
+                        });
+                    } else {
+                        launch_txt += '#'+tokens[0]+'<br>';
+                    }
+                    launch_txt += '<br><br>Processing files (one dot per file):<br>';
+                    lines = ['.', '.', '.', '.', '<br>Finished processing files.<br><br>Jobs submitted.<br><br>'];
+                    $('#demo_terminal .undefined').append('<div class="pipeline">'+launch_txt+'</div>');
+                    var time = 500;
+                    $.each(lines, function(i, val){
+                        setTimeout( function(){
+                            $('#demo_terminal .undefined .pipeline').append(val);
+                            if((i+1) == lines.length && curr_step == 5){
+                                nextStep();
+                            }
+                        }, time);
+                        time += 500;
+                    });
+                    running_job = true;
+                    return '';
+                }
             }
             // Unrecognised
             else {
@@ -172,36 +235,79 @@ $( document ).ready( function() {
         }
         oldJQ.register_command('cf', cf);
 
+        var qstat = function(tokens){
+            if(curr_step == 6){ nextStep(); }
+            if(!running_job){
+                return '<br>';
+            } else {
+                return output['qstat'];
+            }
+        }
+        oldJQ.register_command('qs', qstat );
+
         var ls = function(tokens){
-          tokens.shift();
-          if(tokens.length == 0 || tokens[0] == ''){
-            return "<pre>sample_1.fastq.gz<br>sample_2.fastq.gz<br>sample_3.fastq.gz<br>sample_4.fastq.gz</pre>";
-          } else {
+            tokens.shift();
             var returnvals = [];
+            var hidden = '';
+            var prepend = '';
             $.each(tokens, function(i, val){
-              if(val == '.' || val == './'){
-                returnvals.push([val, "<pre>sample_1.fastq.gz<br>sample_2.fastq.gz<br>sample_3.fastq.gz<br>sample_4.fastq.gz</pre>"]);
-              } else if(val.substr(0,1) == '-' || val.substr(0,1) == '/' || val.substr(0,2) == '..'){
-                returnvals.push([val, 'ls: cannot access '+val+': Permission denied']);
-              } else {
-                returnvals.push([val, 'ls: '+val+': No such file or directory']);
-              }
+                if(val.substr(0,1) == '-'){
+                    if(val.indexOf('a') >= 0) {
+                        hidden = prepend+'.commands.txt<br>';
+                    }
+                    if(val.indexOf('l') >= 0) {
+                        prepend = '-rw-rw-r-- 1 phil cflow 0 May 28 13:47 ';
+                        if(hidden.length > 0){
+                            hidden = '-rw-rw-r-- 1 phil cflow 0 May 29 11:29 '+hidden;
+                        }
+                    }
+                    tokens.splice(i, 1);
+                }
             });
+            if(tokens.length == 0 || tokens[0] == ''){
+                returnvals.push(['.', "<pre>"+hidden+prepend+"sample_1.fastq.gz<br>"+prepend+"sample_2.fastq.gz<br>"+prepend+"sample_3.fastq.gz<br>"+prepend+"sample_4.fastq.gz</pre>"]);
+            } else {
+                $.each(tokens, function(i, val){
+                    if(val == '.' || val == './' || val == '/home/clusterflow/public_html/demo/demofiles' || val == '/home/clusterflow/public_html/demo/demofiles/'){
+                        returnvals.push([val, "<pre>sample_1.fastq.gz<br>sample_2.fastq.gz<br>sample_3.fastq.gz<br>sample_4.fastq.gz</pre>"]);
+                    } else if(val.substr(0,1) == '/' || val.substr(0,2) == '..'){
+                        returnvals.push([val, 'ls: cannot access '+val+': Permission denied']);
+                    } else {
+                        returnvals.push([val, 'ls: '+val+': No such file or directory']);
+                    }
+                });
+            }
             if(returnvals.length == 1){
               return returnvals[0][1];
             } else {
-              var returnstring = '';
-              $.each(returnvals, function(i, val){
-                returnstring += val[0]+':<br>'+val[1]+'<br>';
-              });
-              return returnstring;
+                var returnstring = '';
+                $.each(returnvals, function(i, val){
+                    returnstring += val[0]+':<br>'+val[1]+'<br>';
+                });
+                return returnstring;
             }
-          }
         }
         oldJQ.register_command('ls', ls );
 
+        var cat = function(tokens){
+            var cmd = tokens.shift();
+            if(tokens.length > 0 && tokens[0] == '.commands.txt'){
+                return '<pre>'+commands.join('<br>')+'</pre>';
+            } else {
+                return cmd+': '+tokens[0]+': No such file or directory';
+            }
+        }
+        oldJQ.register_command('cat', cat );
+        oldJQ.register_command('less', cat );
+        oldJQ.register_command('more', cat );
 
+        oldJQ.register_command('pwd', function(){ return '/home/clusterflow/public_html/demo/demofiles'; });
 
+        var denied = function(tokens){ return tokens[0]+': Permission denied'; }
+        var denied_cmds = ['bash', 'chmod', 'cp', 'domainname', 'echo', 'kill', 'link', 'ln', 'mkdir', 'mv', 'rmdir', 'unlink'];
+        $.each(denied_cmds, function(i, val){
+            oldJQ.register_command(val, denied);
+        });
 
 
 
@@ -209,43 +315,57 @@ $( document ).ready( function() {
         // Seriously? You came to the source code to find the easter eggs?
         // Ok, fair enough. I'd have probably done the same...
 
+        // gotostep
+        var gotostep = function(tokens){
+            if(tokens[1] > 0 && tokens[1] <= 8){
+                $('#demo_instructions ol > li:visible').slideUp();
+                $('#demo_instructions ol > li:nth-child('+tokens[1]+')').slideDown();
+                curr_step = parseInt(tokens[1]);
+                if(curr_step >= 7){ $('#email_notification').slideDown(); }
+                return 'Skipped to step '+tokens[1];
+            } else {
+                return 'Did not recognise step number '+tokens[1];
+            }
+        }
+        oldJQ.register_command('gotostep', gotostep );
+
         // rm -rf /*
         var rm = function(tokens){
-          tokens.shift();
-          if(tokens.length == 0 || tokens[0] == ''){
-            return "<pre>usage: rm [-f | -i] [-dPRrvW] file ...<br>       unlink file</pre>";
-          } else {
-            var returnvals = [];
-            var killall = false;
-            $.each(tokens, function(i, val){
-              if(val.substr(0,1) !== '-' && val.substr(0,1) !== '/'){
-                returnvals.push('rm: '+val+': No such file or directory');
-              } else if(val.substr(0,1) == '/'){
-                killall = true;
-              }
-            });
-            if(killall){
-              $('#demo_terminal').html('');
-              var time = 5;
-              $.each(output['rm_text'], function(i, val){
-                setTimeout( function(){
-                  $('#demo_terminal').append('<pre>'+val+'</pre>').scrollTop($("#demo_terminal")[0].scrollHeight);
-                }, time);
-                time += 5;
-              });
-              setTimeout(function(){
-                $('body').html('');
-                setTimeout(function(){
-                  $('body').html(output['rm_page']);
-                  setTimeout(function(){
-                    $('#rm_joking').slideDown();
-                  }, 5000);
-                }, 1000);
-              }, 2250);
+            tokens.shift();
+            if(tokens.length == 0 || tokens[0] == ''){
+                return "<pre>usage: rm [-f | -i] [-dPRrvW] file ...<br>       unlink file</pre>";
             } else {
-              return returnvals.join('<br>');
+                var returnvals = [];
+                var killall = false;
+                $.each(tokens, function(i, val){
+                    if(val.substr(0,1) !== '-' && val.substr(0,1) !== '/'){
+                        returnvals.push('rm: '+val+': No such file or directory');
+                    } else if(val.substr(0,1) == '/'){
+                        killall = true;
+                    }
+                });
+                if(killall){
+                    $('#demo_terminal').html('');
+                    var time = 5;
+                    $.each(output['rm_text'], function(i, val){
+                        setTimeout( function(){
+                            $('#demo_terminal').append('<pre>'+val+'</pre>').scrollTop($("#demo_terminal")[0].scrollHeight);
+                        }, time);
+                        time += 5;
+                    });
+                    setTimeout(function(){
+                        $('body').html('');
+                        setTimeout(function(){
+                            $('body').html(output['rm_page']);
+                            setTimeout(function(){
+                                $('#rm_joking').slideDown();
+                            }, 3000);
+                        }, 1000);
+                    }, 2250);
+                } else {
+                    return returnvals.join('<br>');
+                }
             }
-          }
         }
         oldJQ.register_command('rm', rm );
 
@@ -254,12 +374,12 @@ $( document ).ready( function() {
         var pong = function (tokens) {
           $('#demo_terminal').html('').addClass('pong');
           $('#demo_terminal').pong('assets/circle.gif', {
-            targetSpeed: 20,  //ms
-            ballSpeed: 12,     //pixels per update
-            width: 800,       //px
-            height: 500,      //px
-            paddleHeight: 80, //px
-            paddleBuffer: 25,  //px from the edge of the play area
+            targetSpeed: 20,    //ms
+            ballSpeed: 12,      //pixels per update
+            width: 800,         //px
+            height: 500,        //px
+            paddleHeight: 80,   //px
+            paddleBuffer: 25,   //px from the edge of the play area
             difficulty: 1,
           });
         }
@@ -268,27 +388,30 @@ $( document ).ready( function() {
         // gravity / fall
         var gravity = function (tokens) {
           $('body').jGravity({
-            target: 'h1, ol, #demo_terminal, .well, p, label, .btn-group',
+            target: '.h-img, .h-txt, .f-txt, .fa, #demo_terminal, .well, .lead, .btn-group',
             depth: 50,
           });
         }
         oldJQ.register_command('gravity', gravity );
-        oldJQ.register_command('fall', gravity );
+
+        // gravity / fall
+        var csans = function (tokens) {
+            $('#demo_terminal').addClass('csans');
+            $('body').addClass('csans');
+        }
+        oldJQ.register_command('comicsans', csans );
 
 
 
         var command_directory = {
-
             'date': function( tokens ) {
                 var now = new Date();
                 return now.getDate() + '-' + now.getMonth() + '-' + ( 1900 + now.getYear() )
             },
-
             'cap': function( tokens ) {
                 tokens.shift();
                 return tokens.join( ' ' ).toUpperCase();
             },
-
             'go': function( tokens ) {
                 var url = tokens[1];
                 document.location.href = url;

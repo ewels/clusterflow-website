@@ -21,6 +21,8 @@
     <script type="text/javascript">var oldJQ = $.noConflict(true);</script>
     <!-- NEW jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- Nothing to see here.. -->
     <script src="assets/jquery.pong.js"></script>
     <script src="assets/jGravity-min.js"></script>
@@ -43,10 +45,13 @@
 <body>
 
 <div class="container">
+    <h1><span class="h-txt">Cluster Flow Demo</span> <a class="pull-right" href="../"><img src="../img/Cluster_Flow.png" alt="Cluster Flow" class="h-img"></a></h1>
+    <p><span class="lead">You can try out some basic Cluster Flow commands in the demo terminal below.</span><br>
+    <span class="h-txt">Don't worry, you can't do any damage <abbr title="Go on - do your worst!"><i class="fa fa-smile-o"></i></abbr></span>
+    <span class="h-txt">There are 7 steps to complete, but feel to play around.</span></p>
+</div>
 
-  <h1>Cluster Flow Demo</h1>
-  <p>You can try out some basic Cluster Flow commands in the demo terminal below.
-    Don't worry, you can't do any damage <abbr title="Go on - do your worst!">;)</abbr></p>
+<div class="container">
   <div id="demo_instructions" class="well">
     <div class="help-toggle pull-right">
       <label>Help</label>
@@ -80,10 +85,11 @@
           <li><code>cf --add_genome</code></li>
         </ul>
       </li>
-      <li><h4>Step 5 <span class="step-progress"><i class="fa fa-square-o"></i></span></h4> Check your files and run the pipeline!
+      <li><h4>Step 5 <span class="step-progress"><i class="fa fa-square-o"></i></span></h4> Check the files in your working directory and run a pipeline!
         <ul>
           <li><code>ls</code> (list files)</li>
-          <li><code>cf --genome GRCh37 fastq_bismark *.fastq.gz</code></li>
+          <li><code>cf [--genome ID] [pipeline / module] [files]</code></li>
+          <li><em>eg.</em> <code>cf --genome GRCh37 fastq_bismark *.fastq.gz</code></li>
         </ul>
       </li>
       <li><h4>Step 6 <span class="step-progress"><i class="fa fa-square-o"></i></span></h4> Monitor the pipeline's progress
@@ -92,7 +98,11 @@
           <li><code>qs</code> (usual alias for above)</li>
         </ul>
       </li>
-      <li><h4>Step 7 <span class="step-progress"><i class="fa fa-square-o"></i></span></h4> Check the e-mail when the pipeline finishes!</li>
+      <li><h4>Step 7 <span class="step-progress"><i class="fa fa-square-o"></i></span></h4> Check the e-mail when the pipeline finishes!
+        <ul>
+          <li><button class="btn-link" data-toggle="modal" data-target="#email">Click here to view the e-mail</button></li>
+        </ul>
+      </li>
       <li>That's it for this demo - feel free to have a <abbr title="Anyone for some pong?">play</abbr>.
         Better still, <a href="../">grab a copy of Cluster Flow</a> and try it for real!</li>
     </ol>
@@ -100,7 +110,31 @@
 
   <div id="demo_terminal"></div>
 
+  <!-- Notification Email -->
+  <button style="display:none;" type="button" id="email_notification" data-toggle="modal" data-target="#email"><i class="fa fa-envelope-o"></i> New E-Mail!</button>
+  <div class="modal fade" id="email" tabindex="-1" role="dialog" aria-labelledby="email_subject" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="email_subject">[CF] fastq_bismark pipeline complete</h4>
+        </div>
+        <div class="modal-body">[e-mail content here]</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
+
+<footer class="container">
+  <hr class="f-txt">
+  <p class="f-txt">Cluster Flow was written by <a href="http://phil.ewels.co.uk" target="_blank">Phil Ewels</a> whilst working at the <a href="http://www.bioinformatics.babraham.ac.uk/" target="_blank">Babraham Institute</a> and now the <a href="http://www.scilifelab.se/facilities/genomics-applications/" target="_blank">Science for Life Laboratory</a>.</p>
+  <p class="f-txt">The author will neither confirm nor deny the presence of a number of easter eggs<abbr title="Where might they be hidden?">.</abbr></p>
+</footer>
 
 </body>
 </html>
