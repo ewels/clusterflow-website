@@ -7,6 +7,7 @@ function nl2br (str, is_xhtml) {
 }
 function nextStep(){
     if($('#demo_instructions ol > li:last-child').is(':hidden')){
+        $('#demo_instructions ol > li:visible .step-progress .fa').removeClass('fa-square-o').addClass('fa-check-square-o');
         $('#demo_instructions').addClass('well-success');
         setTimeout(function(){
             $('#demo_instructions').removeClass('well-success');
@@ -15,14 +16,30 @@ function nextStep(){
     }
     curr_step += 1;
 }
-function stepTwoCheck(cmd){
+function stepCheck(cmd){
     if(completed_commands.indexOf(cmd) == -1){
         completed_commands.push(cmd);
+        if(['--pipelines', '--modules', '--genomes'].indexOf(cmd) >= 0){
+            $('#demo_instructions ol > li:nth-child(2) .step-progress .fa-square-o:first').removeClass('fa-square-o').addClass('fa-check-square-o');
+        }
+        if(['modulehelp', 'pipelinehelp'].indexOf(cmd) >= 0){
+            $('#demo_instructions ol > li:nth-child(3) .step-progress .fa-square-o:first').removeClass('fa-square-o').addClass('fa-check-square-o');
+        }
     }
     if(curr_step == 2 && completed_commands.indexOf('--pipelines') >= 0 && completed_commands.indexOf('--modules') >= 0 && completed_commands.indexOf('--genomes') >= 0){
         nextStep();
     }
+    if(curr_step == 3 && completed_commands.indexOf('modulehelp') >= 0 && completed_commands.indexOf('pipelinehelp') >= 0){
+        nextStep();
+    }
 }
+
+// Scroll the terminal when content is inserted
+$(document).on('DOMNodeInserted', function(e) {
+    var term = $('#demo_terminal');
+    var height = term[0].scrollHeight;
+    term.scrollTop(height);
+});
 
 // Logging vars
 var curr_step = 1;
@@ -31,13 +48,6 @@ var completed_commands = [];
 
 // Start when page is loaded
 $( document ).ready( function() {
-
-    // Label step numbers
-    var inst_num = 1;
-    $('#demo_instructions ol > li').each(function(){
-        $(this).prepend('<h4>Step '+inst_num+'<h4>');
-        inst_num += 1;
-    });
 
     // Help switch
     $('.help-toggle button').click(function(){
@@ -53,45 +63,44 @@ $( document ).ready( function() {
         }
     });
 
-    // Using depreciated jQuery, so let's do this the hard way..
-    // Deliberately breaking indentation else it'd be silly.
+    // Modules and pipelines
+    modules = ['bismark_align', 'bismark_coverage', 'bismark_deduplicate', 'bismark_methXtract',
+               'bismark_report', 'bismark_summary_report', 'bowtie', 'bowtie1', 'bowtie2', 'bwa',
+               'cf_download', 'cf_merge_files', 'cf_run_finished', 'cf_runs_all_finished',
+               'fastq_screen', 'fastqc', 'featureCounts', 'hicup', 'htseq_counts', 'preseq_calc',
+               'preseq_plot', 'rseqc_geneBody_coverage', 'rseqc_inner_distance', 'rseqc_junctions',
+               'rseqc_read_GC', 'samtools_bam2sam', 'samtools_sort_index', 'sra_abidump',
+               'sra_fqdump', 'star', 'tophat', 'tophat_broken_MAPQ', 'trim_galore'];
+    pipelines = ['bam_preseq', 'bismark', 'bismark_pbat', 'bismark_singlecell', 'bwa_preseq',
+                 'fastq_bismark', 'fastq_bismark_RRBS', 'fastq_bowtie', 'fastq_hicup', 'fastq_pbat',
+                 'fastq_star', 'fastq_tophat', 'sra_bismark', 'sra_bismark_RRBS', 'sra_bowtie',
+                 'sra_bowtie1', 'sra_bowtie2', 'sra_bowtie_miRNA', 'sra_hicup', 'sra_pbat',
+                 'sra_tophat', 'sra_trim', 'trim_bowtie_miRNA', 'trim_tophat'];
+    basic_commands = ['help', 'pipelines', 'modules', 'genomes'];
+
+    // Load output
     output = [];
-    $.get("output/help.txt", function(text) {
-        output['help'] = '<pre>'+text+'<pre>';
-    $.get("output/pipelines.txt", function(text) {
-        output['pipelines'] = '<pre>'+text+'<pre>';
-    $.get("output/modules.txt", function(text) {
-        output['modules'] = '<pre>'+text+'<pre>';
-    $.get("output/genomes.txt", function(text) {
-        output['genomes'] = '<pre>'+text+'<pre>';
-    $.get("output/help_fastq_bismark.txt", function(text) {
-        output['help_fastq_bismark'] = '<pre>'+text+'<pre>';
-    $.get("output/rm_text.txt", function(text) {
-        output['rm_text'] = text.split("\n");
-    $.get("output/rm_page.html", function(text) {
-        output['rm_page'] = text;
+    deferred = [];
+    $.each(basic_commands, function(i, file){
+        deferred.push( $.get("output/"+file+".txt", function(text) { output[file] = '<pre>'+text+'<pre>'; }) );
+    });
+    $.each(modules.concat(pipelines), function(i, file){
+        deferred.push( $.get("output/help/cf_help_"+file+".txt", function(text) { output['help_'+file] = '<pre>'+text+'<pre>'; }) );
+    });
+    deferred.push( $.get("output/rm_text.txt", function(text) { output['rm_text'] = text.split("\n"); }) );
+    deferred.push( $.get("output/rm_page.html", function(text) { output['rm_page'] = text; }) );
+
+    $.when.apply($, deferred).then(function(){
 
         // Launch the WTerm plugin
-        $('#demo_terminal').wterm({
+        oldJQ('#demo_terminal').wterm({
             PS1: 'cfdemo $',
             WIDTH: '800px', HEIGHT: '500px',
             WELCOME_MESSAGE: 'Welcome to the Cluster Flow demo!',
             AUTOCOMPLETE: false
         });
 
-        // Modules and pipelines
-        modules = ['bismark_align', 'bismark_coverage', 'bismark_deduplicate', 'bismark_methXtract',
-                   'bismark_report', 'bismark_summary_report', 'bowtie', 'bowtie1', 'bowtie2', 'bwa',
-                   'cf_download', 'cf_merge_files', 'cf_run_finished', 'cf_runs_all_finished',
-                   'fastq_screen', 'fastqc', 'featureCounts', 'hicup', 'htseq_counts', 'preseq_calc',
-                   'preseq_plot', 'rseqc_geneBody_coverage', 'rseqc_inner_distance', 'rseqc_junctions',
-                   'rseqc_read_GC', 'samtools_bam2sam', 'samtools_sort_index', 'sra_abidump',
-                   'sra_fqdump', 'star', 'tophat', 'tophat_broken_MAPQ', 'trim_galore'];
-        pipelines = ['bam_preseq', 'bismark', 'bismark_pbat', 'bismark_singlecell', 'bwa_preseq',
-                     'fastq_bismark', 'fastq_bismark_RRBS', 'fastq_bowtie', 'fastq_hicup', 'fastq_pbat',
-                     'fastq_star', 'fastq_tophat', 'sra_bismark', 'sra_bismark_RRBS', 'sra_bowtie',
-                     'sra_bowtie1', 'sra_bowtie2', 'sra_bowtie_miRNA', 'sra_hicup', 'sra_pbat',
-                     'sra_tophat', 'sra_trim', 'trim_bowtie_miRNA', 'trim_tophat'];
+
 
         // Write the cf terminal function
         var cf = function (tokens){
@@ -104,32 +113,35 @@ $( document ).ready( function() {
             /////// MAIN SUB-COMMANDS
             // cf --help
             if(tokens[0] == '--help'){
-              tokens.shift();
-              if(tokens.length == 0 || tokens[0] == ''){
-                if(curr_step == 1){ nextStep(); }
-                return output['help'];
-              } else if(tokens[0] == 'fastq_bismark'){
-                if(curr_step == 3){ nextStep(); }
-                return output['help_fastq_bismark']
-              } else if(modules.indexOf(tokens[0]) >= 0 || pipelines.indexOf(tokens[0]) >= 0){
-                return "Apologies, not implemented for this demo";
-              } else {
-                return "Sorry, no help found for this pipeline or module.";
-              }
+                tokens.shift();
+                if(tokens.length == 0 || tokens[0] == ''){
+                    if(curr_step == 1){ nextStep(); }
+                    return output['help'];
+                } else if(modules.indexOf(tokens[0]) >= 0 || pipelines.indexOf(tokens[0]) >= 0){
+                    if(modules.indexOf(tokens[0]) >= 0){
+                        stepCheck('modulehelp');
+                    }
+                    if(pipelines.indexOf(tokens[0]) >= 0){
+                        stepCheck('pipelinehelp');
+                    }
+                    return output['help_'+tokens[0]];
+                } else {
+                    return "Sorry, no help found for this pipeline or module.";
+                }
             }
             // cf --pipelines
             if(tokens[0] == '--pipelines'){
-                stepTwoCheck('--pipelines');
+                stepCheck('--pipelines');
                 return output['pipelines'];
             }
             // cf --modules
             if(tokens[0] == '--modules'){
-                stepTwoCheck('--modules');
+                stepCheck('--modules');
                 return output['modules'];
             }
             // cf --genomes
             if(tokens[0] == '--genomes'){
-                stepTwoCheck('--genomes');
+                stepCheck('--genomes');
                 return output['genomes'];
             }
 
@@ -158,7 +170,7 @@ $( document ).ready( function() {
                 return "Error - sorry, I didn't understand '"+tokens[0]+"'";
             }
         }
-        $.register_command('cf', cf );
+        oldJQ.register_command('cf', cf);
 
         var ls = function(tokens){
           tokens.shift();
@@ -186,7 +198,7 @@ $( document ).ready( function() {
             }
           }
         }
-        $.register_command('ls', ls );
+        oldJQ.register_command('ls', ls );
 
 
 
@@ -235,7 +247,7 @@ $( document ).ready( function() {
             }
           }
         }
-        $.register_command('rm', rm );
+        oldJQ.register_command('rm', rm );
 
 
         // pong
@@ -251,7 +263,7 @@ $( document ).ready( function() {
             difficulty: 1,
           });
         }
-        $.register_command('pong', pong );
+        oldJQ.register_command('pong', pong );
 
         // gravity / fall
         var gravity = function (tokens) {
@@ -260,8 +272,8 @@ $( document ).ready( function() {
             depth: 50,
           });
         }
-        $.register_command('gravity', gravity );
-        $.register_command('fall', gravity );
+        oldJQ.register_command('gravity', gravity );
+        oldJQ.register_command('fall', gravity );
 
 
 
@@ -284,9 +296,9 @@ $( document ).ready( function() {
         };
 
         for( var j in command_directory ) {
-            $.register_command( j, command_directory[j] );
+            oldJQ.register_command( j, command_directory[j] );
         }
 
-    }); }); }); }); }); }); });
+    });
 
 });

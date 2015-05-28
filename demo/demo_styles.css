@@ -11,15 +11,11 @@
 #demo_instructions ol > li:first-child {
   display: list-item;
 }
-/*#demo_instructions ol > li:before {
-    content: 'Step ' counter(item, decimal) '. \a';
-    counter-increment: item;
-    white-space: pre;
-    font-weight: bold;
-    font-size: 1.1em;
-}*/
 #demo_instructions ol h4 {
   margin-top:0;
+}
+.step-progress {
+  margin-left: 15px;
 }
 #demo_instructions ol ul {
   display: none;

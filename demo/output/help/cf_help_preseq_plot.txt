@@ -1,0 +1,42 @@
+
+usage: Cluster Flow Module preseq_plot
+
+-----------------------
+Preseq Plotting Module
+-----------------------
+Takes results from preseq and plots nice colourful complexity curves
+using the plot_complexity_curves() function in the ngi_visualizations
+Python package.
+
+This CF module can be run either as a regular module: #plot_preseq
+or as a pipeline summary module: >plot_preseq
+If run as a summary module, all preseq curves will be plotted
+in a single graph.
+
+The ngi_visualizations package is available here:
+https://github.com/ewels/ngi_visualizations
+
+To install, run:
+pip install git+https://github.com/NationalGenomicsInfrastructure/ngi_visualizations.git
+
+ ******************************************************************
+NB: Loading some modules (eg. cutadapt) can change your python path.
+You can try running 'module load cutadapt' before the above pip installation.
+If having permission errors, try 'pip install --user' instead.
+ ******************************************************************
+
+       [-h] [--requirements] [--run_fn RUNFNS] [--job_id JOB_ID]
+       [--prev_job_id PREV_JOB_ID] [--cores CORES] [--mem MEM]
+       [--param PARAMS_LIST]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --requirements        Request the cluster resources needed by the module
+  --run_fn RUNFNS       Path to the Cluster Flow run file(s) for this pipeline
+  --job_id JOB_ID       Cluster job ID for this job
+  --prev_job_id PREV_JOB_ID
+                        Cluster job ID for the previous job
+  --cores CORES         Number of cores to be used by the module
+  --mem MEM             Amount of memory to be used by the module
+  --param PARAMS_LIST   Extra parameters to be used
+
