@@ -1,4 +1,5 @@
 /* Styles specifically for the Cluster Flow demo */
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
 
 h1 img {
   max-width: 200px;
@@ -45,7 +46,7 @@ h1 img {
     border-radius: 6px;
     background-color: #002b36;
     color: #657b83;
-    font-family: 'Monaco', monospace;
+    font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
     border: 1px solid #ccc;
     font-size: 14px;
 }
@@ -70,7 +71,7 @@ h1 img {
     color: #657b83;
     width: 100%;
     font-size: 1em;
-    font-family: 'Monaco', monospace;
+    font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
     outline: none;
 }
 .wterm_terminal div:first {

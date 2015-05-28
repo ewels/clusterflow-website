@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Cluster Flow</title>
-    <meta name="description" content="A simple and flexible bioinformatics pipeline tool">
+    <meta name="description" content="Cluster Flow: A simple and flexible bioinformatics pipeline tool">
     <meta name="author" content="Phil Ewels">
 
     <!-- Bootstrap -->

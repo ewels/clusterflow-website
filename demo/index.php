@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Demo: Cluster Flow</title>
-    <meta name="description" content="A simple and flexible bioinformatics pipeline tool">
+    <meta name="description" content="Cluster Flow: A simple and flexible bioinformatics pipeline tool">
     <meta name="author" content="Phil Ewels">
 
     <!-- Bootstrap -->
@@ -54,10 +54,10 @@
 <div class="container">
   <div id="demo_instructions" class="well">
     <div class="help-toggle pull-right">
-      <label>Help</label>
+      <label>Show Help?</label>
       <div class="btn-group btn-toggle">
-        <button class="btn btn-xs btn-on btn-default">Show</button>
-        <button class="btn btn-xs btn-off btn-warning active">Hide</button>
+        <button class="btn btn-sm btn-on btn-default">Show</button>
+        <button class="btn btn-sm btn-off btn-warning active">Hide</button>
       </div>
     </div>
 
