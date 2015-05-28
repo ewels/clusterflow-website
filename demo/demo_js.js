@@ -87,6 +87,9 @@ $( document ).ready( function() {
     commands = ['bash', 'cap', 'cat', 'cf', 'chmod', 'clear', 'comicsans', 'cp', 'date', 'domainname',
                 'echo', 'go', 'gotostep', 'gravity', 'kill', 'less', 'link', 'ln', 'ls', 'mkdir', 'more', 'mv',
                 'pong', 'pwd', 'qs', 'rm', 'rmdir', 'unlink'];
+    unsupported_params = ['setup', 'file_list', 'params', 'qstatall', 'qdel', 'dry_run', 'check_updates',
+                'cores', 'email', 'max_runs', 'mem', 'environment', 'merge', 'notifications',
+                'no_fn_check', 'ref', 'single', 'split_files', 'paired', 'priority', 'project', 'runfile_prefix']
 
     // Load output
     output = [];
@@ -172,6 +175,25 @@ $( document ).ready( function() {
             // cf --qstat
             if(tokens.indexOf('--qstat') >= 0){
                 return qstat();
+            }
+            // cf --version
+            if(tokens.indexOf('--version') >= 0){
+                return 'Cluster Flow web-demo v0.1';
+            }
+            // Unsupported
+            var unsup = false;
+            $.each(tokens, function(i, val){
+                if(val.substr(0,2) == '--'){
+                    val = val.substr(2);
+                    console.log(unsupported_params.indexOf(val));
+                    if(unsupported_params.indexOf(val) >= 0){
+                        console.log('Found!');
+                        unsup = true;
+                    }
+                }
+            });
+            if(unsup){
+                return 'Apologies, this Cluster Flow parameter is not supported in the web demo.';
             }
 
             //////// PARAMETERS
@@ -346,7 +368,9 @@ $( document ).ready( function() {
                 var returnvals = [];
                 var killall = false;
                 $.each(tokens, function(i, val){
-                    if(val.substr(0,1) !== '-' && val.substr(0,1) !== '/'){
+                    if(tokens[0].substr(0, 2) == 'sa' || tokens[0].slice(-2) == 'gz'){
+                        returnvals.push('rm: '+val+': Permission denied');
+                    } else if(val.substr(0,1) !== '-' && val.substr(0,1) !== '/'){
                         returnvals.push('rm: '+val+': No such file or directory');
                     } else if(val.substr(0,1) == '/'){
                         killall = true;
