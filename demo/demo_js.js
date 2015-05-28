@@ -99,6 +99,7 @@ $( document ).ready( function() {
     });
     deferred.push( $.get("output/qstat.html", function(text) { output['qstat'] = '<pre>'+text+'</pre>'; }) );
     deferred.push( $.get("output/email.html", function(text) { output['email'] = text; }) );
+    deferred.push( $.get("output/fastq_example.txt", function(text) { output['fastq_example'] = text; }) );
     deferred.push( $.get("output/rm_text.txt", function(text) { output['rm_text'] = text.split("\n"); }) );
     deferred.push( $.get("output/rm_page.html", function(text) { output['rm_page'] = text; }) );
 
@@ -256,9 +257,9 @@ $( document ).ready( function() {
                         hidden = prepend+'.commands.txt<br>';
                     }
                     if(val.indexOf('l') >= 0) {
-                        prepend = '-rw-rw-r-- 1 phil cflow 0 May 28 13:47 ';
+                        prepend = '-rw-rw-r-- 1 demouser cflow 0 May 28 13:47 ';
                         if(hidden.length > 0){
-                            hidden = '-rw-rw-r-- 1 phil cflow 0 May 29 11:29 '+hidden;
+                            hidden = '-rw-rw-r-- 1 demouser cflow 0 May 29 11:29 '+hidden;
                         }
                     }
                     tokens.splice(i, 1);
@@ -291,8 +292,15 @@ $( document ).ready( function() {
 
         var cat = function(tokens){
             var cmd = tokens.shift();
-            if(tokens.length > 0 && tokens[0] == '.commands.txt'){
+            if(tokens.length == 0 || tokens[0] == ''){
+                return 'Missing filename ("'+cmd+' --help" for help)';
+            }
+            if(tokens[0] == '.commands.txt'){
                 return '<pre>'+commands.join('<br>')+'</pre>';
+            } else if(tokens[0].substr(0, 2) == 'sa' || tokens[0].slice(-2) == 'gz'){
+                fastq_output = $('<div/>').text(output['fastq_example']).html();
+                fastq_output += '<br><br><small><em>Output truncated..</em></small>';
+                return fastq_output;
             } else {
                 return cmd+': '+tokens[0]+': No such file or directory';
             }
