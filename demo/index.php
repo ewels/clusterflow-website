@@ -74,7 +74,7 @@
           <li><code>cf --genomes</code></li>
         </ul>
       </li>
-      <li><h4>Step 3 <span class="step-progress"><i class="fa fa-square-o"></i> <i class="fa fa-square-o"></i></span></h4> Find more information a pipelines and a module.
+      <li><h4>Step 3 <span class="step-progress"><i class="fa fa-square-o"></i> <i class="fa fa-square-o"></i></span></h4> See if you can find out more information about a pipeline and a module.
         <ul>
           <li><code>cf --help [pipeline]</code></li>
           <li><code>cf --help [module]</code></li>
