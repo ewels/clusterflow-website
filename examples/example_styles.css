@@ -9,8 +9,11 @@ code, pre, pre code {
   font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
 }
 
-.show-output {
+.sans_font, .show-output {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.show-output, .mod-modal-btn {
+  padding: 0 4px;
 }
 .cmd_ex {
   margin: 10px 0 0;
@@ -22,4 +25,9 @@ code, pre, pre code {
   padding-top:5px;
   border-radius: 0 0 4px 4px;
   font-size: 12px;
+}
+
+#mod-modal .modal-body {
+  white-space: pre;
+  padding: 7px 15px;
 }

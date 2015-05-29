@@ -1,6 +1,8 @@
 // Javascript for examples page
 
 $(document).ready(function(){
+
+    // Show output from commands
     $('.show-output').click(function(){
         var caret = $(this).children('i');
         var pre = $(this).parent();
@@ -14,5 +16,13 @@ $(document).ready(function(){
                 pre.css('border-radius', '4px');
             });
         }
+    });
+
+    // Info about mods and pipelines
+    $('.mod-modal-btn').click(function(){
+        $('.mod-modal-name').text($(this).text());
+         $.get("../demo/output/help/cf_help_"+$(this).text()+".txt", function(text) {
+             $('#mod-modal .modal-body').html(text.trim());
+        });
     });
 });

@@ -6,11 +6,10 @@
  Cluster Flow ID:       fastq_bismark_1432818534
 ======================================================================
 
- - <span style="background-color: #fdf6e3; color: #b58900;"> trim_galore </span>                       <span style="color:#268bd2;">[3 cores]</span>
-      - bismark_align
-           - bismark_deduplicate
-                - bismark_methXtract
-                     - bismark_report
+ - <span style="background-color: #fdf6e3; color: #b58900;"> bismark_align </span>                     <span style="color:#268bd2;">[8 cores]</span>
+      - bismark_deduplicate
+           - bismark_methXtract
+               - bismark_report
 
  - <span style="background-color: #fdf6e3; color: #b58900;"> trim_galore </span>                       <span style="color:#268bd2;">[3 cores]</span>
       - bismark_align
@@ -31,5 +30,3 @@
            - bismark_deduplicate
                 - bismark_methXtract
                      - bismark_report
-
-<p><small>Ok, I know this might not be the pipeline you launched. But hopefully it gives you the idea :)</small></p>

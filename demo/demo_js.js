@@ -100,7 +100,7 @@ $( document ).ready( function() {
     $.each(modules.concat(pipelines), function(i, file){
         deferred.push( $.get("output/help/cf_help_"+file+".txt", function(text) { output['help_'+file] = '<pre>'+text+'<pre>'; }) );
     });
-    deferred.push( $.get("output/qstat.html", function(text) { output['qstat'] = '<pre>'+text+'</pre>'; }) );
+    deferred.push( $.get("output/qstat.html", function(text) { output['qstat'] = '<pre>'+text+'<p><small>Ok, I know this might not be the pipeline you launched. But hopefully it gives you the idea :)</small></p></pre>'; }) );
     deferred.push( $.get("output/email.html", function(text) { output['email'] = text; }) );
     deferred.push( $.get("output/fastq_example.txt", function(text) { output['fastq_example'] = text; }) );
     deferred.push( $.get("output/rm_text.txt", function(text) { output['rm_text'] = text.split("\n"); }) );

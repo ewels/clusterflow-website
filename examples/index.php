@@ -20,6 +20,7 @@
 
     <!-- Demo Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="examples_js.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -57,11 +58,11 @@
     <h3>Running pipelines</h3>
     <p>You can run modules and pipelines with varying numbers of extra parameters, to give increasing degrees of flexibility:</p>
 
-    <pre class="cmd_ex">cf sra_trim *sra</pre>
-    <pre class="cmd_ex">cf samtools_sort_index *bam</pre>
+    <pre class="cmd_ex">cf sra_trim *.sra</pre>
+    <pre class="cmd_ex">cf samtools_sort_index *.bam</pre>
     <pre class="cmd_ex">cf --genome GRCh37 fastq_tophat *fastq.gz</pre>
-    <pre class="cmd_ex">cf --genome GRCh37 sra_bismark ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR521/SRR521008/SRR521008.sra</pre>
-    <pre class="cmd_ex">cf --genome GRCh37 --paired --project a2015930 --file_list downloads.txt fastq_tophat</pre>
+    <pre class="cmd_ex">cf --genome NCBIM37 fastq_bismark ftp://fileserver.edu/data/sample1.fq</pre>
+    <pre class="cmd_ex">cf --paired --project a2015930 --genome s.pombe --file_list downloads.txt fastq_tophat</pre>
 
     <h3>Monitoring progress</h3>
     <p>Once running, Cluster Flow has a number of tools to help you keep track of your jobs:</p>
@@ -69,12 +70,73 @@
     <pre class="cmd_ex">cf --qstat <button class="show-output btn-link pull-right">Show output <i class="fa fa-caret-down"></i></button></pre>
     <pre class="cmd_output"><?php echo file_get_contents('../demo/output/qstat.html'); ?></pre>
 
+    <pre class="cmd_ex"><span class="sans_font">Notification e-mails when a pipeline completes.</span> <button class="show-output btn-link pull-right">Show output <i class="fa fa-caret-down"></i></button></pre>
+    <pre class="cmd_output"><iframe src="../demo/output/email.html" style="width: 100%; height: 500px; background-color: #FFF; border: none;"></iframe></pre>
+
+    <h3>Pipelines and Modules</h3>
+    <p>To find out more about specific pipelines and modules that come bundled with Cluster Flow, click the buttons below:</p>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Modules</h4>
+        <ul>
+          <?php
+          $modules = ['bismark_align', 'bismark_coverage', 'bismark_deduplicate', 'bismark_methXtract',
+                       'bismark_report', 'bismark_summary_report', 'bowtie', 'bowtie1', 'bowtie2', 'bwa',
+                       'cf_download', 'cf_merge_files', 'cf_run_finished', 'cf_runs_all_finished',
+                       'fastq_screen', 'fastqc', 'featureCounts', 'hicup', 'htseq_counts', 'preseq_calc',
+                       'preseq_plot', 'rseqc_geneBody_coverage', 'rseqc_inner_distance', 'rseqc_junctions',
+                       'rseqc_read_GC', 'samtools_bam2sam', 'samtools_sort_index', 'sra_abidump',
+                       'sra_fqdump', 'star', 'tophat', 'tophat_broken_MAPQ', 'trim_galore'];
+          foreach($modules as $mod){
+            echo '<li><button class="mod-modal-btn btn-link" data-toggle="modal" data-target="#mod-modal">'.$mod."</button></li>\n";
+          }
+          ?>
+        </ul>
+      </div>
+      <div class="col-sm-6">
+        <h4>Pipelines</h4>
+        <ul>
+          <?php
+          $pipelines = ['bam_preseq', 'bismark', 'bismark_pbat', 'bismark_singlecell', 'bwa_preseq',
+                       'fastq_bismark', 'fastq_bismark_RRBS', 'fastq_bowtie', 'fastq_hicup', 'fastq_pbat',
+                       'fastq_star', 'fastq_tophat', 'sra_bismark', 'sra_bismark_RRBS', 'sra_bowtie',
+                       'sra_bowtie1', 'sra_bowtie2', 'sra_bowtie_miRNA', 'sra_hicup', 'sra_pbat',
+                       'sra_tophat', 'sra_trim', 'trim_bowtie_miRNA', 'trim_tophat'];
+          foreach($pipelines as $p){
+            echo '<li><button class="mod-modal-btn btn-link" data-toggle="modal" data-target="#mod-modal">'.$p."</button></li>\n";
+          }
+          ?>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Further Information</h3>
+    <p>To find out more about Cluster Flow - have a look at the <a href="../demo/">online demo</a>,
+      <a href="../0.4/">read the documentation</a> or <a href="../">download a copy</a> and try it out!</p>
+
 </div>
 
 <footer class="container">
   <hr class="f-txt">
   <p class="f-txt">Cluster Flow was written by <a href="http://phil.ewels.co.uk" target="_blank">Phil Ewels</a> whilst working at the <a href="http://www.bioinformatics.babraham.ac.uk/" target="_blank">Babraham Institute</a> and now the <a href="http://www.scilifelab.se/facilities/genomics-applications/" target="_blank">Science for Life Laboratory</a>.</p>
 </footer>
+
+<!-- Help Modal -->
+<div class="modal fade" id="mod-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><span class="mod-modal-name"></span> Help</h4>
+      </div>
+      <div class="modal-body">[help content loading]</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
