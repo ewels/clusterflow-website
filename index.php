@@ -114,7 +114,13 @@
       </div>
     </div>
 
-    <h3>Contributing</h3>
+    <h4>Previous Versions</h4>
+    <p>You can download and read release notes for previous versions of Cluster Flow on the
+      <a href="https://github.com/ewels/clusterflow/releases/">GitHub releases page</a>. You can also read the
+      documentation for <a href="0.3">v0.3</a> and <a href="0.4">v0.4</a> on this website.</p>
+
+
+    <h4>Contributing</h4>
     <p>Cluster Flow is an open-source project, with a number of <a href="https://github.com/ewels/clusterflow/graphs/contributors">contributors</a>.
       If you would like to add a module or pipeline, please see the <a href="https://github.com/ewels/clusterflow/blob/master/CONTRIBUTING.md">instructions</a>.</p>
     <hr>
