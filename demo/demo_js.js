@@ -109,7 +109,7 @@ $( document ).ready( function() {
     $.when.apply($, deferred).then(function(){
 
         // Launch the WTerm plugin
-        oldJQ('#demo_terminal').wterm({
+        oldJQ('#demo_terminal').html('').wterm({
             PS1: 'cfdemo $',
             WIDTH: '800px', HEIGHT: '500px',
             WELCOME_MESSAGE: 'Welcome to the Cluster Flow demo!',

@@ -108,7 +108,7 @@
     </ol>
   </div>
 
-  <div id="demo_terminal"></div>
+  <div id="demo_terminal">Loading...</div>
 
   <!-- Notification Email -->
   <button style="display:none;" type="button" id="email_notification" data-toggle="modal" data-target="#email"><i class="fa fa-envelope-o"></i> New E-Mail!</button>
