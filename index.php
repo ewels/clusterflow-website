@@ -114,6 +114,9 @@
       </div>
     </div>
 
+    <h4>Getting Started with Cluster Flow</h4>
+    <p>Please see the <a href="0.4/installation">installation docs</a> for quick-start instructions on getting started with Cluster Flow.</p>
+
     <h4>Previous Versions</h4>
     <p>You can download and read release notes for previous versions of Cluster Flow on the
       <a href="https://github.com/ewels/clusterflow/releases/">GitHub releases page</a>. You can also read the
