@@ -1,0 +1,3 @@
+[submodule "clusterflow"]
+	path = clusterflow
+	url = https://github.com/ewels/clusterflow.git
