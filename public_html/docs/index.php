@@ -91,8 +91,9 @@ while($curr_level > 0){
 	<meta name="author" content="Phil Ewels"/>
 	<link rel="shortcut icon" href="../favicon.ico">
 
-	<!-- Bootstrap -->
+	<!-- CSS -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/style.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -101,25 +102,21 @@ while($curr_level > 0){
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
-	<!-- Site Stylesheet -->
-	<link rel="stylesheet" href="../css/style.css">
 </head>
 <body id="cf_docs" data-spy="scroll" data-target="#toc" data-offset="100">
 
-<header class="container">
+<div class="header container">
   
-  <h1>Documentation
-    <a class="pull-right" href="../"><img src="../img/Cluster_Flow.png" alt="Cluster Flow"></a>
-  </h1>
+  <div class="pull-right top_logo">
+    <a href="../"><img src="../img/Cluster_Flow.png" alt="Cluster Flow"></a><br>
+    <a href="../">Back to homepage</a>
+  </div>
+  <h1>CF Documentation</h1>
   
   <p><span class="lead">Welcome to the Cluster Flow docs!</span><br>
     These are also bundled with the Cluster Flow download as markdown files.</p>
-    
-  <nav id="nav" role="navigation">
-    <?php echo $tl_toc; ?>
-  </nav>
   
-</header>
+</div>
 
 <div class="container docs-container">
   <div class="row">

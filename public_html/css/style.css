@@ -1,20 +1,24 @@
-
-/* Styles for Cluster Flow documentation */
+/* http://clusterflow.io      */
+/* Site built with Bootstrap  */
 
 /* Google Fonts */
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic|Source+Code+Pro);
 
 body {
 	font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
-	weight: 400;
+	font-weight: 400;
 	font-size: 18px;
-	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+	/*-webkit-font-smoothing: antialiased;*/
+	/*font-smoothing: antialiased;*/
 	padding: 0;
 	margin:0;
 	background-color: #fff4ea;
 }
 
+.lead {
+  border-left: 2px solid #ccc;
+  padding-left: 10px;
+}
 code, pre {
 	font-family: 'Source Code Pro', Consolas, Courier, monospace;
 }
@@ -47,17 +51,122 @@ blockquote {
 	font-size: 0.9em;
 }
 
+
+/*
+ * Homepage
+ */
 header {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 768px){
+  header {
+    padding: 40px;
+  }
+}
+.header-panel {
+  max-width: 520px;
+  text-align: center;
+}
+.header-panel h1, .header-panel h2 {
+  margin: 0;
+}
+.header-panel h1 img {
+  width: 100%;
+  max-width: 460px;
+}
+
+.intro, .intro-dl {
+  font-size: 90%;
+}
+
+
+footer {
+  font-size: 0.9em;
+  color: #999;
+  margin-bottom: 30px;
+}
+footer a {
+  color: #999;
+  text-decoration: underline;
+}
+
+
+.panel-btn, .btn {
+  -webkit-transition: background-color 0.1s;
+  -moz-transition: background-color 0.1s;
+  -o-transition: background-color 0.1s;
+  -ms-transition: background-color 0.1s;
+  transition: background-color 0.1s;
+  border-radius: 6px;
+  background-color: #fffaf5;
+  color: #333;
+}
+.panel-btn:visited, .btn:visited, .panel-btn:active, .btn:active, .panel-btn:focus, .btn:focus {
+  color: #333 !important;
+}
+.panel-btn {
+  display:block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding:12px;
+  font-size: 2em;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+.panel-btn:hover, .panel-btn:active, .panel-btn:focus {
+  background-color: #e6e6e6;
+  text-decoration: none;
+  border-color: #adadad;
+}
+.panel-btn .fa {
+  font-size: 4em;
+  height: 112px;
+  width: 112px;
+}
+.panel-btn-info .fa { color: #5bc0de; }
+.panel-btn-info { border-bottom: 1px solid #46b8da; }
+.panel-btn-info:hover, .panel-btn-info:active, .panel-btn-info:focus { border-bottom: 1px solid #269abc; background-color: #d9edf7;  }
+
+.panel-btn-primary .fa { color: #337ab7; }
+.panel-btn-primary { border-bottom: 1px solid #2e6da4; }
+.panel-btn-primary:hover, .panel-btn-primary:active, .panel-btn-primary:focus { border-bottom: 1px solid #204d74; background-color: #e5ecf2; }
+
+.panel-btn-success .fa { color: #5cb85c; }
+.panel-btn-success { border-bottom: 1px solid #4cae4c; }
+.panel-btn-success:hover, .panel-btn-success:active, .panel-btn-success:focus { border-bottom: 1px solid #398439; background-color: #dff0d8; }
+
+
+
+
+
+
+
+
+/*
+ * Documentation
+ */
+
+#cf_docs .header {
 	border-bottom: 1px solid #CCC;
 	margin-top: 1em;
 	margin-bottom: 70px;
 	padding-bottom: 1em;
 }
-header h1 {
+#cf_docs .header h1 {
 	font-size: 4em;
 	margin: 15px 0 10px;
 }
-header h1 img {
+#cf_docs .top_logo {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 80%;
+}
+#cf_docs .top_logo a {
+  color: #999;
+}
+#cf_docs .top_logo img {
 	max-width: 200px;
 }
 
@@ -203,4 +312,175 @@ h1.section-header .header-link { margin-top: 23px; }
 }
 .backtotop a:hover, .backtotop a:focus {
   background-color: #eee;
+}
+
+
+
+
+
+
+/*
+ * Terminal Demo
+ */
+
+#demo_instructions {
+  font-size: 80%;
+}
+#demo_instructions code {
+  white-space: normal;
+}
+#demo_instructions h4 {
+  font-weight: 600;
+}
+#demo_instructions ol {
+  padding: 0;
+  margin: 0;
+}
+#demo_instructions ol > li {
+  list-style-type: none;
+  display: none;
+}
+#demo_instructions ol > li:first-child {
+  display: list-item;
+}
+#demo_instructions ol h4 {
+  margin-top:0;
+}
+.step-progress {
+  margin-left: 15px;
+}
+#demo_instructions ol ul {
+  display: none;
+}
+.help-toggle button.active:focus, .help-toggle button:focus {
+  outline: none;
+}
+.help-toggle button {
+  border-radius: 1px;
+}
+.well-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+#demo_terminal {
+    display: block;
+    overflow-x: auto;;
+    overflow-y: auto;
+    margin: 55px 20px;
+    padding: 20px;
+    width: 800px;
+    height: 500px;
+    border-radius: 6px;
+    background-color: #002b36;
+    color: #839496;
+    font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+#demo_terminal pre {
+    background-color: transparent;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+    border: none;
+    color: inherit;
+    overflow-x: auto;
+}
+#demo_terminal pre {
+    font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
+}
+#demo_terminal span, #demo_terminal input {
+    color: #859900;
+}
+
+
+/* WTerm Styles */
+.wterm_terminal input {
+    background: transparent;
+    border: 0;
+    color: #657b83;
+    width: 100%;
+    font-size: 1em;
+    font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
+    outline: none;
+}
+.wterm_terminal div:first {
+    margin-bottom: 1em;
+}
+.wterm_terminal .wterm_prompt {
+    float: left;
+    clear: left;
+}
+.wterm_terminal form {
+    float: left;
+    margin: 0px;
+    width: 75%;
+}
+
+#email_notification {
+  position:fixed;
+  bottom:0;
+  right: 30px;
+  padding: 20px 30px;
+  background-color: #d9edf7;
+  border: 2px solid #bce8f1;
+  color: #31708f;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: none;
+  font-size: 2em;
+  font-weight:bold;
+  -webkit-box-shadow: 0px 12px 63px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 12px 63px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 12px 63px 0px rgba(0,0,0,0.75);
+}
+
+
+
+/* Easter Eggs */
+.rm_page {
+  background-color: #FFFFFF;
+}
+.rm_error {
+  font-family: Times, serif;
+  padding: 0;
+  margin: 8px;
+  color: #000;
+}
+.rm_error h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 0;
+}
+.rm_error p {
+  font-size: 16px;
+}
+.rm_error hr {
+  border-style: inset;
+  border-width: 1px;
+}
+.rm_error #rm_joking {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 50px;
+}
+
+/* http://benogle.com/2009/04/20/jquery-pong.html */
+.pong textarea { outline: none; background-color: #002b36 !important; resize: none; }
+#demo_terminal.pong { background-color: #002b36 !important; }
+.pong .score { font-family: 'Monaco', monospace !important; }
+.pong .msg:after { content: ' reload page to return to demo.' }
+
+#demo_terminal.csans {
+  font-size: 1.5em;
+  background-color: #FF00FF;
+  border: 10px dashed yellow;
+}
+#demo_terminal.csans, #demo_terminal.csans span, #demo_terminal.csans input, #demo_terminal.csans pre,
+body.csans, body.csans .well {
+  font-family: "Comic Sans MS", cursive, sans-serif !important;
+  color: yellow !important;
+}
+body.csans, body.csans .well {
+  background-color: blue !important;
 }

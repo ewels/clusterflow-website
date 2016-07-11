@@ -112,7 +112,7 @@ $( document ).ready( function() {
         oldJQ('#demo_terminal').html('').wterm({
             PS1: 'cfdemo $',
             WIDTH: '800px', HEIGHT: '500px',
-            WELCOME_MESSAGE: 'Welcome to the Cluster Flow demo!',
+            WELCOME_MESSAGE: "Welcome to the Cluster Flow demo!<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>There are 7 steps to complete, but feel to play around.<br>Don't worry, you can't do any damage (feel free to do your worst).",
             AUTOCOMPLETE: false
         });
 
@@ -386,13 +386,13 @@ $( document ).ready( function() {
                         time += 5;
                     });
                     setTimeout(function(){
-                        $('body').html('');
+                        $('body').addClass('rm_page').html('');
                         setTimeout(function(){
                             $('body').html(output['rm_page']);
                             setTimeout(function(){
                                 $('#rm_joking').slideDown();
-                            }, 3000);
-                        }, 1000);
+                            }, 5000);
+                        }, 800);
                     }, 2250);
                 } else {
                     return returnvals.join('<br>');
@@ -405,7 +405,7 @@ $( document ).ready( function() {
         // pong
         var pong = function (tokens) {
           $('#demo_terminal').html('').addClass('pong');
-          $('#demo_terminal').pong('assets/circle.gif', {
+          $('#demo_terminal').pong('img/circle.gif', {
             targetSpeed: 20,    //ms
             ballSpeed: 12,      //pixels per update
             width: 800,         //px

@@ -57,13 +57,13 @@
     <p>Cluster Flow has a number of functions to list installed pipelines, modules and reference genomes:</p>
 
     <pre class="cmd_ex">cf --pipelines <button class="show-output btn-link pull-right">Show output <i class="fa fa-caret-down"></i></button></pre>
-    <pre class="cmd_output"><?php echo file_get_contents('../demo/output/pipelines.txt'); ?></pre>
+    <pre class="cmd_output"><?php echo file_get_contents('../output/pipelines.txt'); ?></pre>
 
     <pre class="cmd_ex">cf --modules <button class="show-output btn-link pull-right">Show output <i class="fa fa-caret-down"></i></button></pre>
-    <pre class="cmd_output"><?php echo file_get_contents('../demo/output/modules.txt'); ?></pre>
+    <pre class="cmd_output"><?php echo file_get_contents('../output/modules.txt'); ?></pre>
 
     <pre class="cmd_ex">cf --genomes <button class="show-output btn-link pull-right">Show output <i class="fa fa-caret-down"></i></button></pre>
-    <pre class="cmd_output"><?php echo file_get_contents('../demo/output/genomes.txt'); ?></pre>
+    <pre class="cmd_output"><?php echo file_get_contents('../output/genomes.txt'); ?></pre>
 
 
     <h3>Running pipelines</h3>
@@ -79,10 +79,10 @@
     <p>Once running, Cluster Flow has a number of tools to help you keep track of your jobs:</p>
 
     <pre class="cmd_ex">cf --qstat <button class="show-output btn-link pull-right">Show output <i class="fa fa-caret-down"></i></button></pre>
-    <pre class="cmd_output"><?php echo file_get_contents('../demo/output/qstat.html'); ?></pre>
+    <pre class="cmd_output"><?php echo file_get_contents('../output/qstat.html'); ?></pre>
 
     <pre class="cmd_ex"><span class="sans_font">Notification e-mails when a pipeline completes.</span> <button class="show-output btn-link pull-right">Show output <i class="fa fa-caret-down"></i></button></pre>
-    <pre class="cmd_output"><iframe src="../demo/output/email.html" style="width: 100%; height: 500px; background-color: #FFF; border: none;"></iframe></pre>
+    <pre class="cmd_output"><iframe src="../output/email.html" style="width: 100%; height: 500px; background-color: #FFF; border: none;"></iframe></pre>
 
     <h3>Pipelines and Modules</h3>
     <p>To find out more about specific pipelines and modules that come bundled with Cluster Flow, click the buttons below:</p>
@@ -123,8 +123,8 @@
     </div>
 
     <h3>Further Information</h3>
-    <p>To find out more about Cluster Flow - have a look at the <a href="../demo/">online demo</a>,
-      <a href="../0.4/">read the documentation</a> or <a href="../">download a copy</a> and try it out!</p>
+    <p>To find out more about Cluster Flow - have a look at the <a href="../">online demo</a>,
+      <a href="../docs">read the documentation</a> or <a href="https://github.com/ewels/clusterflow/releases">download a copy</a> and try it out!</p>
 
 </div>
 
