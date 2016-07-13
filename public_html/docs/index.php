@@ -2,27 +2,30 @@
 // Markdown parsing libraries
 require_once('parsedown/Parsedown.php');
 require_once('parsedown-extra/ParsedownExtra.php');
+$pd = new ParsedownExtra();
+$content = '';
+$tl_toc = '<ul>';
 
 // Get the docs markdown sources in order
 require_once("../../Spyc.php");
 $md = file_get_contents('../../clusterflow/docs/README.md');
 $pages = [];
+$docs_intro = '';
 $md_parts = explode('---', $md, 3);
 if(count($md_parts) == 3){
   $pages = spyc_load($md_parts[1]);
+  $content .= '<div class="docs_block" id="welcome">'.$pd->text($md_parts[2]).'</div>';
+  $tl_toc .= '<li><a href="#welcome">Welcome</a></li>';
 }
 if(count($pages) == 0){ die("Error - couldn't find documentation source."); }
 
 // Loop over the markdown files and build the HTML content
-$content = '';
-$tl_toc = '<ul>';
 foreach ($pages as $section => $fn) {
   if(basename($fn) == 'README.md'){ continue; }
   $sid = strtolower(str_replace(' ', '-', $section));
   $tl_toc .= '<li><a href="#'.$sid.'">'.$section.'</a></li>';
   $content .= '<div class="docs_section">'."\n".'<h1 class="section-header" id="'.$sid.'"><a href="#'.$sid.'" class="header-link"><span class="glyphicon glyphicon-link"></span></a>'.$section."</h1>\n";
   $md = file_get_contents('../../clusterflow/docs/'.trim($fn));
-  $pd = new ParsedownExtra();
   $content .= '<div class="docs_block" id="'.basename($fn).'">' . $pd->text($md) . '</div>';
   $content .= '</div>';
 }
@@ -113,21 +116,21 @@ while($curr_level > 0){
   </div>
   <h1>CF Documentation</h1>
   
-  <p><span class="lead">Welcome to the Cluster Flow docs!</span><br>
-    These are also bundled with the Cluster Flow download as markdown files.</p>
+  <p>This documentation is written in markdown and comes bundled with the
+    <a href="https://github.com/ewels/clusterflow/tree/master/docs">Cluster Flow source code</a>.</p>
   
 </div>
 
 <div class="container docs-container">
   <div class="row">
-    <div class="col-sm-3 col-sm-push-9" id="toc_column">
+    <div class="col-sm-9 docs-content">
+      <?php echo $content; ?>
+    </div>
+    <div class="col-sm-3" id="toc_column">
       <div id="toc" data-spy="affix" data-offset-top="278">
         <?php echo $toc; ?>
         <p class="backtotop"><a href="#">Back to top</a></p>
       </div>
-    </div>
-    <div class="col-sm-9 col-sm-pull-3">
-      <?php echo $content; ?>
     </div>
   </div>
 </div> <!-- /container -->
