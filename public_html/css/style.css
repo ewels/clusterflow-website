@@ -111,7 +111,7 @@ footer a {
   width: 100%;
   margin-bottom: 12px;
   padding:12px;
-  font-size: 2em;
+  font-size: 1.2em;
   text-align: center;
   border: 1px solid #ccc;
 }
@@ -122,8 +122,8 @@ footer a {
 }
 .panel-btn .fa {
   font-size: 4em;
-  height: 112px;
-  width: 112px;
+  height: 92px;
+  width: 92px;
 }
 .panel-btn-info .fa { color: #5bc0de; }
 .panel-btn-info { border-bottom: 1px solid #46b8da; }
@@ -322,7 +322,9 @@ h1.section-header .header-link { margin-top: 23px; }
 /*
  * Terminal Demo
  */
-
+.demo_row h2 {
+	margin-top: 12px;
+}
 #demo_instructions {
   font-size: 80%;
 }
@@ -367,7 +369,7 @@ h1.section-header .header-link { margin-top: 23px; }
     display: block;
     overflow-x: auto;;
     overflow-y: auto;
-    margin: 55px 20px;
+    margin: 20px 0 20px auto;
     padding: 20px;
     width: 800px;
     height: 500px;

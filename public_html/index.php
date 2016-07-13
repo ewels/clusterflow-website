@@ -58,7 +58,6 @@
         </dl>
       </div>
     </div>
-    <hr>
     <div class="row">
       <div class="col-sm-4">
         <a class="panel-btn panel-btn-info" href="docs">
@@ -77,7 +76,7 @@
       <div class="col-sm-4">
         <a class="panel-btn panel-btn-success" href="https://github.com/ewels/clusterflow">
           <i class="fa fa-github"></i><br>
-          CF on GitHub
+          Cluster Flow on GitHub
         </a>
       </div>
     </div>
@@ -87,7 +86,7 @@
       <h2>Cluster Flow Demo</h2>
       <p>You can try out an online demo of Cluster Flow when visiting from a bigger screen..</p>
     </div>
-    <div class="row hidden-xs">
+    <div class="row hidden-xs demo_row">
       <div class="col-md-2 col-lg-3">
         <h2>Cluster Flow Demo</h2>
         <p class="lead">You can try out some basic Cluster Flow commands in this demo terminal.</p>
