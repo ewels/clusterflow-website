@@ -365,19 +365,60 @@ h1.section-header .header-link { margin-top: 23px; }
   border-color: #d6e9c6;
 }
 
+#demo_terminal_wrapper {
+  margin: 20px 0 20px auto;
+	width: 800px;
+	border-radius: 5px;
+  background: #f2f2f2;
+	/*border: 1px solid #ccc;*/
+}
+#demo_terminal_header {
+  height: 22px;
+  padding: 0 3px;
+	background: #f2f2f2; /* Old browsers */
+	background: -moz-linear-gradient(top, #f2f2f2 0%, #e4e4e4 28%, #d3d3d3 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #f2f2f2 0%,#e4e4e4 28%,#d3d3d3 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #f2f2f2 0%,#e4e4e4 28%,#d3d3d3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#d3d3d3',GradientType=0 ); /* IE6-9 */
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border: 1px solid #d0d0d0;
+	border-bottom: 1px solid #909090;
+}
+#demo_terminal_btns span {
+    height: 12px;
+    width: 12px;
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: #eee;
+    border: 1px solid #bbb;
+    float: left;
+    margin: 4px 3px 0 4px;
+    cursor: pointer;
+}
+#demo_terminal_btns span:first-of-type { background-color: #f3575f; border-color: #d63547; }
+#demo_terminal_btns span:nth-of-type(2){ background-color: #f6be43; border-color: #d9a238; }
+#demo_terminal_btns span:last-of-type{ background-color: #4ad149; border-color: #3fb234; }
+#demo_terminal_btns span:first-of-type:hover { background-color: #ec4840; }
+#demo_terminal_btns span:nth-of-type(2):hover{ background-color: #e79d48; }
+#demo_terminal_btns span:last-of-type:hover{ background-color: #52ab3f; }
+#demo_terminal_header_text {
+	margin: 0 0 0 370px;
+	font-size: 14px;
+}
+
 #demo_terminal {
     display: block;
     overflow-x: auto;;
     overflow-y: auto;
-    margin: 20px 0 20px auto;
     padding: 20px;
     width: 800px;
     height: 500px;
-    border-radius: 6px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
     background-color: #002b36;
     color: #839496;
     font-family: 'Monaco', 'Source Code Pro', 'Consolas', 'Andale Mono', monospace;
-    border: 1px solid #ccc;
     font-size: 14px;
 }
 #demo_terminal pre {

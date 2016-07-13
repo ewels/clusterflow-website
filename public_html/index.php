@@ -147,7 +147,13 @@
         </div>
       </div>
       <div class="col-md-10 col-lg-9">
-        <div id="demo_terminal">Loading...</div>
+        <div id="demo_terminal_wrapper">
+          <div id="demo_terminal_header">
+            <div id="demo_terminal_btns"><span></span><span></span><span></span></div>
+            <div id="demo_terminal_header_text">1. bash</div>
+          </div>
+          <div id="demo_terminal">Loading...</div>
+        </div>
       </div>
     </div>
 
