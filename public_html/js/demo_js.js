@@ -107,7 +107,13 @@ $( document ).ready( function() {
     deferred.push( $.get("output/rm_page.html", function(text) { output['rm_page'] = text; }) );
 
     $.when.apply($, deferred).then(function(){
-
+      $('#demo_terminal').addClass('launch_demo').html("<div>Welcome to the Cluster Flow demo!<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Click here to start!</div>");
+    });
+    
+    $('#demo_terminal').click(function(){
+      if($(this).hasClass('launch_demo')){
+        
+        $(this).removeClass('launch_demo');
         // Launch the WTerm plugin
         oldJQ('#demo_terminal').html('').wterm({
             PS1: 'cfdemo $',
@@ -342,8 +348,7 @@ $( document ).ready( function() {
 
 
         ////////// EASTER EGGS
-        // Seriously? You came to the source code to find the easter eggs?
-        // Ok, fair enough. I'd have probably done the same...
+        // Kudos for coming to the source code to find the easter eggs ;)
 
         // gotostep
         var gotostep = function(tokens){
@@ -386,13 +391,13 @@ $( document ).ready( function() {
                         time += 5;
                     });
                     setTimeout(function(){
-                        $('body').addClass('rm_page').html('');
+                        $('body').html('');
                         setTimeout(function(){
                             $('body').html(output['rm_page']);
                             setTimeout(function(){
                                 $('#rm_joking').slideDown();
-                            }, 5000);
-                        }, 800);
+                            }, 3000);
+                        }, 1000);
                     }, 2250);
                 } else {
                     return returnvals.join('<br>');
@@ -405,13 +410,13 @@ $( document ).ready( function() {
         // pong
         var pong = function (tokens) {
           $('#demo_terminal').html('').addClass('pong');
-          $('#demo_terminal').pong('img/circle.gif', {
-            targetSpeed: 20,    //ms
-            ballSpeed: 12,      //pixels per update
-            width: 800,         //px
-            height: 500,        //px
-            paddleHeight: 80,   //px
-            paddleBuffer: 25,   //px from the edge of the play area
+          $('#demo_terminal').pong('assets/circle.gif', {
+            targetSpeed: 20,    // ms
+            ballSpeed: 12,      // pixels per update
+            width: 800,         // px
+            height: 500,        // px
+            paddleHeight: 80,   // px
+            paddleBuffer: 25,   // px from the edge of the play area
             difficulty: 1,
           });
         }
@@ -426,7 +431,7 @@ $( document ).ready( function() {
         }
         oldJQ.register_command('gravity', gravity );
 
-        // gravity / fall
+        // comicsans
         var csans = function (tokens) {
             $('#demo_terminal').addClass('csans');
             $('body').addClass('csans');
@@ -453,7 +458,7 @@ $( document ).ready( function() {
         for( var j in command_directory ) {
             oldJQ.register_command( j, command_directory[j] );
         }
-
+      }
     });
 
 });
