@@ -410,9 +410,9 @@ $( document ).ready( function() {
         // pong
         var pong = function (tokens) {
           $('#demo_terminal').html('').addClass('pong');
-          $('#demo_terminal').pong('assets/circle.gif', {
-            targetSpeed: 20,    // ms
-            ballSpeed: 12,      // pixels per update
+          $('#demo_terminal').pong('img/circle.gif', {
+            targetSpeed: 10,    // ms
+            ballSpeed: 8,      // pixels per update
             width: 800,         // px
             height: 500,        // px
             paddleHeight: 80,   // px
@@ -424,9 +424,11 @@ $( document ).ready( function() {
 
         // gravity / fall
         var gravity = function (tokens) {
+          $('header').css('height', $('header').height());
+          $('main').css('height', $('main').height());
           $('body').jGravity({
-            target: '.h-img, .h-txt, .f-txt, .fa, #demo_terminal, .well, .lead, .btn-group',
-            depth: 50,
+            target: 'header *, main *',
+            depth: 2
           });
         }
         oldJQ.register_command('gravity', gravity );
