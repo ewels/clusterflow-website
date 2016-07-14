@@ -7,13 +7,16 @@ Installed pipelines:
     Directory /Users/demouser/Work/Cluster_Flow/clusterflow/pipelines/
 	- bam_preseq
 	- bismark
+	- bismark_RRBS
 	- bismark_pbat
 	- bismark_singlecell
 	- bwa_preseq
+	- chipseq_qc
 	- fastq_bismark
 	- fastq_bismark_RRBS
 	- fastq_bowtie
 	- fastq_hicup
+	- fastq_hisat2
 	- fastq_pbat
 	- fastq_star
 	- fastq_tophat
@@ -24,6 +27,7 @@ Installed pipelines:
 	- sra_bowtie2
 	- sra_bowtie_miRNA
 	- sra_hicup
+	- sra_hisat2
 	- sra_pbat
 	- sra_tophat
 	- sra_trim

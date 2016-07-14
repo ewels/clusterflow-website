@@ -11,9 +11,6 @@ reference with a corresponding bowtie index base in the configuration.
  Pipeline:
 --------------------
 
-
-@require_reference bowtie
-
 #sra_fqdump
 	#fastqc
 	#trim_galore

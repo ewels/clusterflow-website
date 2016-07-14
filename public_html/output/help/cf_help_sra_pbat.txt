@@ -1,5 +1,4 @@
 
-
 ----------------------------
 SRA to Bismark PBAT Pipeline
 ----------------------------
@@ -11,8 +10,6 @@ It runs Bismark with the --pbat parameter as well as --ignore 4
 --------------------
  Pipeline:
 --------------------
-
-@require_reference bismark
 
 #sra_fqdump
 	#fastqc

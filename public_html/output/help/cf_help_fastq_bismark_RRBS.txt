@@ -14,13 +14,10 @@ Trim Galore is run with the RRBS parameter.
  Pipeline:
 --------------------
 
-@require_reference bismark
-
 #fastqc
 #trim_galore	RRBS
 	#bismark_align
-		#bismark_deduplicate
-			#bismark_methXtract
-				#bismark_report
-					>bismark_summary_report
+		#bismark_methXtract
+			#bismark_report
+				>bismark_summary_report
 

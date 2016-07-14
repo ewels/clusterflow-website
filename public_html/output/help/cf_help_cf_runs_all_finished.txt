@@ -1,4 +1,0 @@
-
-
-This is a core module which is executed when all runs have finished.
-

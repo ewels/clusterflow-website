@@ -11,8 +11,6 @@ It runs Bismark with the --pbat parameter as well as --ignore 4
  Pipeline:
 --------------------
 
-@require_reference bismark
-
 #bismark_align pbat
 	#bismark_deduplicate
 		#bismark_methXtract pbat

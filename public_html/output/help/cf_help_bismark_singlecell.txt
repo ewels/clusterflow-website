@@ -6,13 +6,10 @@ This pipeline takes FastQ files as input and processes
 with Bismark (alignment, deduplication, methylation
 extractor then report generation).
 It runs Bismark with the --non_directional parameter for alignment
-as amd --ignore 4 in the methylation extraction.
 
 --------------------
  Pipeline:
 --------------------
-
-@require_reference bismark
 
 #bismark_align single_cell
 	#bismark_deduplicate
