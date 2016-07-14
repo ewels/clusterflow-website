@@ -71,18 +71,21 @@ $( document ).ready( function() {
     });
 
     // Modules and pipelines
-    modules = ['bismark_align', 'bismark_coverage', 'bismark_deduplicate', 'bismark_methXtract',
-               'bismark_report', 'bismark_summary_report', 'bowtie', 'bowtie1', 'bowtie2', 'bwa',
-               'cf_download', 'cf_merge_files', 'cf_run_finished', 'cf_runs_all_finished',
-               'fastq_screen', 'fastqc', 'featureCounts', 'hicup', 'htseq_counts', 'preseq_calc',
-               'preseq_plot', 'rseqc_geneBody_coverage', 'rseqc_inner_distance', 'rseqc_junctions',
-               'rseqc_read_GC', 'samtools_bam2sam', 'samtools_sort_index', 'sra_abidump',
-               'sra_fqdump', 'star', 'tophat', 'tophat_broken_MAPQ', 'trim_galore'];
-    pipelines = ['bam_preseq', 'bismark', 'bismark_pbat', 'bismark_singlecell', 'bwa_preseq',
-                 'fastq_bismark', 'fastq_bismark_RRBS', 'fastq_bowtie', 'fastq_hicup', 'fastq_pbat',
-                 'fastq_star', 'fastq_tophat', 'sra_bismark', 'sra_bismark_RRBS', 'sra_bowtie',
-                 'sra_bowtie1', 'sra_bowtie2', 'sra_bowtie_miRNA', 'sra_hicup', 'sra_pbat',
-                 'sra_tophat', 'sra_trim', 'trim_bowtie_miRNA', 'trim_tophat'];
+    modules = ['bedToNrf', 'bedtools_bamToBed', 'bedtools_intersectNeg', 'bismark_align',
+               'bismark_deduplicate', 'bismark_methXtract', 'bismark_report', 'bismark_summary_report',
+               'bowtie', 'bowtie1', 'bowtie2', 'bwa', 'cf_download', 'cf_merge_files', 'cf_run_finished',
+               'cf_runs_all_finished', 'deeptools_bamCoverage', 'deeptools_bamFingerprint', 'fastq_screen',
+               'fastqc', 'featureCounts', 'hicup', 'hisat2', 'htseq_counts', 'kallisto', 'multiqc',
+               'phantompeaktools_runSpp', 'picard_dedup', 'preseq_calc', 'rseqc_geneBody_coverage',
+               'rseqc_inner_distance', 'rseqc_junctions', 'rseqc_read_GC', 'samtools_bam2sam',
+               'samtools_dedup', 'samtools_sort_index', 'sra_abidump', 'sra_fqdump', 'star', 'tophat',
+               'tophat_broken_MAPQ', 'trim_galore'];
+    pipelines = ['bam_preseq', 'bismark', 'bismark_RRBS', 'bismark_pbat', 'bismark_singlecell',
+                 'bwa_preseq', 'chipseq_qc', 'fastq_bismark', 'fastq_bismark_RRBS', 'fastq_bowtie',
+                 'fastq_hicup', 'fastq_hisat2', 'fastq_pbat', 'fastq_star', 'fastq_tophat', 'sra_bismark',
+                 'sra_bismark_RRBS', 'sra_bowtie', 'sra_bowtie1', 'sra_bowtie2', 'sra_bowtie_miRNA',
+                 'sra_hicup', 'sra_hisat2', 'sra_pbat', 'sra_tophat', 'sra_trim', 'trim_bowtie_miRNA',
+                 'trim_tophat'];
     output_files = ['help', 'pipelines', 'modules', 'genomes', 'launch_pipeline'];
     commands = ['bash', 'cap', 'cat', 'cf', 'chmod', 'clear', 'comicsans', 'cp', 'date', 'domainname',
                 'echo', 'go', 'gotostep', 'gravity', 'kill', 'less', 'link', 'ln', 'ls', 'mkdir', 'more', 'mv',
