@@ -67,9 +67,9 @@
         <span class="visible-xs">&nbsp;</span>
       </div>
       <div class="col-sm-4">
-        <a class="panel-btn panel-btn-primary" href="https://github.com/ewels/clusterflow/archive/v0.3.tar.gz">
+        <a class="panel-btn panel-btn-primary" href="https://github.com/ewels/clusterflow/archive/v0.4.tar.gz">
           <i class="fa fa-download"></i><br>
-          Download v0.3
+          Download v0.4
         </a>
         <span class="visible-xs">&nbsp;</span>
       </div>
