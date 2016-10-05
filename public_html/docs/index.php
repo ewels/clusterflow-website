@@ -110,12 +110,16 @@ while($curr_level > 0){
 <body id="cf_docs" data-spy="scroll" data-target="#toc" data-offset="100">
 
 <div class="header container">
-  
-  <div class="pull-right top_logo">
-    <a href="../"><img src="../img/Cluster_Flow.png" alt="Cluster Flow"></a><br>
-    <a href="../">Back to homepage</a>
+  <div class="row">
+    <div class="col-sm-3 col-sm-push-9 top_logo">
+      <a href="../"><img src="../img/Cluster_Flow.png" alt="Cluster Flow"></a><br>
+      <a href="../">Back to homepage</a>
+    </div>
+    <div class="col-sm-9 col-sm-pull-3">
+      <h1>CF Documentation</h1>
+    </div>
   </div>
-  <h1>CF Documentation</h1>
+  
   
   <p>This documentation is written in markdown and comes bundled with the
     <a href="https://github.com/ewels/clusterflow/tree/master/docs">Cluster Flow source code</a>.</p>

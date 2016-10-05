@@ -51,7 +51,10 @@ blockquote {
 	border-left: 2px solid #ced8de;
 	font-size: 0.9em;
 }
-
+.embed-responsive-16by9 {
+  padding-bottom: 55.9%;
+  border: 1px solid #ccc;
+}
 
 /*
  * Homepage
@@ -81,6 +84,9 @@ header {
 .intro, .intro-dl {
   font-size: 90%;
 }
+.intro-dl dl {
+  margin-bottom: 0;
+}
 
 
 footer {
@@ -91,6 +97,19 @@ footer {
 footer a {
   color: #999;
   text-decoration: underline;
+}
+
+.intro-vids h4 {
+  margin-top: 10px;
+}
+#video-links {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+#video-links li a {
+  display: block;
+  padding: 10px 0;
 }
 
 
@@ -171,6 +190,17 @@ footer a {
 	max-width: 200px;
 }
 
+@media screen and (max-width: 768px){
+  #cf_docs .top_logo {
+    margin-top: 0;
+  }
+  #cf_docs .header h1 {
+    font-size: 2em;
+  }
+  h1 {
+    font-size: 3em;
+  }
+}
 
 footer {
 	margin: 2em auto;
