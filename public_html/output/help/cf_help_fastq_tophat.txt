@@ -13,9 +13,6 @@ featureCounts is used to count gene read overlaps.
  Pipeline:
 --------------------
 
-
-@require_reference bowtie2
-
 #fastqc
 #trim_galore
 	#tophat

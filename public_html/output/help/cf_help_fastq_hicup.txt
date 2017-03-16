@@ -12,9 +12,6 @@ This pipeline passes no parameters to HiCUP so uses HindIII.
  Pipeline:
 --------------------
 
-@require_reference fasta
-@require_reference bowtie
-
 #fastqc
 #trim_galore
 	#hicup

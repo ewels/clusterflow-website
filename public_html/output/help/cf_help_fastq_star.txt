@@ -10,9 +10,6 @@ corresponding STAR index base in the configuration.
  Pipeline:
 --------------------
 
-
-@require_reference star
-
 #fastqc
 #trim_galore
 	#star

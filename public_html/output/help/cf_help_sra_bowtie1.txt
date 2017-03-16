@@ -10,9 +10,6 @@ corresponding Bowtie 1 index base in the configuration.
  Pipeline:
 --------------------
 
-
-@require_reference bowtie
-
 #sra_fqdump
 	#fastqc
 	#trim_galore

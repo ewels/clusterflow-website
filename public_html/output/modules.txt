@@ -5,8 +5,10 @@ Available modules:
     Directory ./
     Directory /Users/demouser/.clusterflow/modules/ (not found)
     Directory /Users/demouser/Work/Cluster_Flow/clusterflow/modules/
+	- bedToNrf
+	- bedtools_bamToBed
+	- bedtools_intersectNeg
 	- bismark_align
-	- bismark_coverage
 	- bismark_deduplicate
 	- bismark_methXtract
 	- bismark_report
@@ -19,18 +21,25 @@ Available modules:
 	- cf_merge_files
 	- cf_run_finished
 	- cf_runs_all_finished
+	- deeptools_bamCoverage
+	- deeptools_bamFingerprint
 	- fastq_screen
 	- fastqc
 	- featureCounts
 	- hicup
+	- hisat2
 	- htseq_counts
+	- kallisto
+	- multiqc
+	- phantompeaktools_runSpp
+	- picard_dedup
 	- preseq_calc
-	- preseq_plot
 	- rseqc_geneBody_coverage
 	- rseqc_inner_distance
 	- rseqc_junctions
 	- rseqc_read_GC
 	- samtools_bam2sam
+	- samtools_dedup
 	- samtools_sort_index
 	- sra_abidump
 	- sra_fqdump

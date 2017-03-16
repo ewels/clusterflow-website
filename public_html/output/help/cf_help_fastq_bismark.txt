@@ -12,8 +12,6 @@ genome.
  Pipeline:
 --------------------
 
-@require_reference bismark
-
 #fastqc
 #trim_galore
 	#bismark_align

@@ -35,29 +35,54 @@
 <main>
   <div class="container">
     <div class="row">
-      <div class="col-sm-5 intro">
+      <div class="col-sm-12 col-md-6 intro">
         <p class="lead">Cluster Flow is designed to be quick and easy to install,
           with flexible configuration and simple customization.</p>
         <p>It's easy enough to set up and use for non-bioinformaticians (given a basic
           knowledge of the command line), and it's simplicity makes it great for low
           to medium throughput analyses.</p>
       </div>
-      <div class="col-sm-7 intro-dl">
+      <div class="col-sm-8 col-md-4">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe id="cf-video" src="https://www.youtube.com/embed/FusdI-QvbJo?list=PLIA2-lqNuhvH6fog0ctm5ZpdtPoUOun-l&amp;showinfo=0" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-2 intro-vids">
+        <h4>Videos</h4>
+        <ul id="video-links">
+          <li><a data-youtubeid="FusdI-QvbJo" href="https://www.youtube.com/watch?v=FusdI-QvbJo&index=1&list=PLIA2-lqNuhvH6fog0ctm5ZpdtPoUOun-l">Introduction</a></li>
+          <li><a data-youtubeid="BFBt5fCWWSY" href="https://www.youtube.com/watch?v=BFBt5fCWWSY&index=2&list=PLIA2-lqNuhvH6fog0ctm5ZpdtPoUOun-l">Usage</a></li>
+          <li><a data-youtubeid="L9BmqU7PENo" href="https://www.youtube.com/watch?v=L9BmqU7PENo&index=3&list=PLIA2-lqNuhvH6fog0ctm5ZpdtPoUOun-l">Installation</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <hr>
+    <div class="row">
+      <div class="col-md-6 intro-dl">
         <dl class="dl-horizontal">
           <dt>Simple</dt>
           <dd>Installation walkthroughs and a large module toolset mean you get up and running quickly.</dd>
 
+          <dt>Powerful</dt>
+          <dd>Comes packaged with support for 24 different bioinformatics tools (RNA, ChIP, Bisulfite and more).</dd>
+        </dl>
+      </div>
+      <div class="col-md-6 intro-dl">
+        <dl class="dl-horizontal">
           <dt>Flexibile</dt>
           <dd>Pipelines are fast to assemble, making it trivial to change on the fly.</dd>
-
+          
           <dt>Traceable</dt>
           <dd>Commands, software versions, everything is logged for reproducability.</dd>
 
-          <dt>Extensible</dt>
-          <dd>Helper functions and commented examples make writing your own modules easy.</dd>
+          <!-- <dt>Extensible</dt>
+          <dd>Helper functions and commented examples make writing your own modules easy.</dd> -->
         </dl>
       </div>
     </div>
+    <hr>
+    
     <div class="row">
       <div class="col-sm-4">
         <a class="panel-btn panel-btn-info" href="docs">
@@ -67,9 +92,9 @@
         <span class="visible-xs">&nbsp;</span>
       </div>
       <div class="col-sm-4">
-        <a class="panel-btn panel-btn-primary" href="https://github.com/ewels/clusterflow/archive/v0.3.tar.gz">
+        <a class="panel-btn panel-btn-primary" href="https://github.com/ewels/clusterflow/archive/v0.4.tar.gz">
           <i class="fa fa-download"></i><br>
-          Download v0.3
+          Download v0.4
         </a>
         <span class="visible-xs">&nbsp;</span>
       </div>
@@ -84,7 +109,7 @@
     
     <div class="hidden-lg hidden-md hidden-sm">
       <h2>Cluster Flow Demo</h2>
-      <p>You can try out an online demo of Cluster Flow when visiting from a bigger screen..</p>
+      <p>Apologies, the demo doesn't work properly on small screens. Please try again when visiting from a bigger device..</p>
     </div>
     <div class="row hidden-xs demo_row">
       <div class="col-md-2 col-lg-3">
@@ -194,6 +219,15 @@
 <script src="js/jGravity-min.js"></script>
 <script src="js/demo_js.js"></script>
 <script>
+  // Video links
+  $('#video-links a').click(function(e){
+    e.preventDefault();
+    var vid = $(this).data('youtubeid');
+    var url = 'https://www.youtube.com/embed/'+vid+'?list=PLIA2-lqNuhvH6fog0ctm5ZpdtPoUOun-l&amp;showinfo=0';
+    $('#cf-video').attr('src', url);
+  });
+  
+  // Google Analytics
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
