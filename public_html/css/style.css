@@ -215,6 +215,8 @@ h1.section-header .header-link { margin-top: 23px; }
 
 #toc {
   margin-top:10px;
+  height: 100%;
+  overflow-y: auto;
 }
 .affix {
   top: 20px;
