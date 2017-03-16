@@ -8,7 +8,7 @@ $tl_toc = '<ul>';
 
 // Get the docs markdown sources in order
 require_once("../../Spyc.php");
-$md = file_get_contents('../../clusterflow/docs/README.md');
+$md = file_get_contents('../../../clusterflow/docs/README.md');
 $pages = [];
 $docs_intro = '';
 $md_parts = explode('---', $md, 3);
@@ -25,7 +25,7 @@ foreach ($pages as $section => $fn) {
   $sid = strtolower(str_replace(' ', '-', $section));
   $tl_toc .= '<li><a href="#'.$sid.'">'.$section.'</a></li>';
   $content .= '<div class="docs_section">'."\n".'<h1 class="section-header" id="'.$sid.'"><a href="#'.$sid.'" class="header-link"><span class="glyphicon glyphicon-link"></span></a>'.$section."</h1>\n";
-  $md = file_get_contents('../../clusterflow/docs/'.trim($fn));
+  $md = file_get_contents('../../../clusterflow/docs/'.trim($fn));
   $content .= '<div class="docs_block" id="'.basename($fn).'">' . $pd->text($md) . '</div>';
   $content .= '</div>';
 }
