@@ -117,7 +117,7 @@ $db->close();
 
 <header>
   <div class="header-panel">
-      <h1><img src="img/Cluster_Flow.png" alt="Cluster Flow"></h1>
+      <h1><a href="/"><img src="img/Cluster_Flow.png" alt="Cluster Flow"></a></h1>
       <h2 class="hidden-xs"><small>A simple and flexible bioinformatics pipeline tool</small></h2>
   </div>
 </header>
