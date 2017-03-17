@@ -124,8 +124,12 @@ $db->close();
 
 <main>
   <div class="container">
-    <div id="versions_by_week"></div>
+    <h3>Runs by week</h3>
+    <p>Showing version check counts per week, broken down by the running Cluster Flow version.</p>
+    <div id="versions_by_week" style="height:450px;"></div>
     <div id="hits_by_ip">
+      <h3>Runs by City</h3>
+      <p>Showing total version checks, located to nearest city using <a href="http://ipinfo.io/" target="_blank">ipinfo.io</a>.</p>
       <table class="table">
         <thead>
           <tr>
@@ -141,7 +145,7 @@ $db->close();
             echo '<tr>';
             echo '<td>'.$d['city'].'</td>';
             echo '<td>'.$d['region'].'</td>';
-            echo '<td>'.$d['country'].'</td>';
+            echo '<td>'.Locale::getDisplayRegion('-'.$d['country'], 'en').'</td>';
             echo '<td>'.$d['count'].'</td>';
             echo '</tr>';
           } ?>
