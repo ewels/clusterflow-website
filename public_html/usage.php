@@ -24,12 +24,69 @@ if ($result = $db->query("SELECT `version`, COUNT(*) as `version_count`, `date` 
     }
     $result->close();
 }
+
+// Usage per IP
+if ($result = $db->query("SELECT `ip`, COUNT(*) as `ip_count`, `addr` from `version_checks` GROUP BY `ip` ORDER BY `ip_count` DESC")) {
+    $hits_per_ip = [];
+    $hits_per_city = [];
+    while ($row = $result->fetch_assoc()) {
+      $hits_per_ip[$row['ip']] = array(
+        'count' => $row['ip_count'],
+        'address' => $row['addr']
+      );
+      $details = false;
+      $stmt = $db->stmt_init();
+      $stmt->prepare("SELECT ip, hostname, city, region, country, loc, org FROM ip_info WHERE ip=?");
+      $stmt->bind_param('s',$row['ip']);
+      $stmt->execute();
+      $stmt->store_result();
+      if($stmt->num_rows > 0){
+        $stmt->bind_result($ip, $hostname, $city, $region, $country, $loc, $org);
+        while ($stmt->fetch()) {
+          $details = array(
+            'ip' => $ip,
+            'hostname' => $hostname,
+            'city' => $city,
+            'region' => $region,
+            'country' => $country,
+            'loc' => $loc,
+            'org' => $org,
+          );
+        }
+      } else {
+        $details = json_decode(file_get_contents("http://ipinfo.io/".$row['ip']."/json"), true);
+        if($details){
+          $stmt = $db->prepare("INSERT INTO ip_info (ip, hostname, city, region, country, loc, org) VALUES (?, ?, ?, ?, ?, ?, ?)");
+          $stmt->bind_param('sssssss', $details['ip'], $details['hostname'], $details['city'], $details['region'], $details['country'], $details['loc'], $details['org'] );
+          $stmt->execute();
+        }
+      }
+      if($details){
+        $hits_per_ip[$row['ip']]['city'] = $details['city'];
+        $hits_per_ip[$row['ip']]['region'] = $details['region'];
+        $hits_per_ip[$row['ip']]['country'] = $details['country'];
+        $hits_per_ip[$row['ip']]['org'] = $details['org'];
+        $k = $details['city'].'-'.$details['country'];
+        if(!array_key_exists($k, $hits_per_city)){
+          $hits_per_city[$k] = array(
+            'city' => $details['city'],
+            'region' => $details['region'],
+            'country' => $details['country'],
+            'count' => 0
+          );
+        }
+        $hits_per_city[$k]['count'] += $row['ip_count'];
+      }
+    }
+    // Sort city counts
+    function sortCounts($a, $b) {
+      return $a['count'] < $b['count'];
+    }
+    usort($hits_per_city, 'sortCounts');
+    $result->close();
+}
+
 $db->close();
-
-
-// $ip = $_SERVER['REMOTE_ADDR'];
-// $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
-// echo $details->city; // -> "Mountain View"
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -52,7 +109,7 @@ $db->close();
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
   </head>
 </html>
 
@@ -68,6 +125,29 @@ $db->close();
 <main>
   <div class="container">
     <div id="versions_by_week"></div>
+    <div id="hits_by_ip">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>Region</th>
+            <th>Country</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          foreach($hits_per_city as $k => $d){
+            echo '<tr>';
+            echo '<td>'.$d['city'].'</td>';
+            echo '<td>'.$d['region'].'</td>';
+            echo '<td>'.$d['country'].'</td>';
+            echo '<td>'.$d['count'].'</td>';
+            echo '</tr>';
+          } ?>
+        </tbody>
+      </table>
+    </div>
   </div>
 </main>
 
@@ -95,7 +175,7 @@ $db->close();
     plot_bgcolor: 'rgba(0,0,0,0)',
     yaxis: { gridcolor: '#dedede' }
   };
-  Plotly.plot( VERSIONS_BY_WEEK, <?php echo json_encode(array_values($versions_by_week), JSON_PRETTY_PRINT); ?>, versions_layout );
+  Plotly.plot( VERSIONS_BY_WEEK, <?php echo json_encode(array_values($versions_by_week)); ?>, versions_layout );
 </script>
 
 </body>
