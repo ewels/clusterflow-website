@@ -1,6 +1,3 @@
-[submodule "clusterflow"]
-	path = clusterflow
-	url = https://github.com/ewels/clusterflow.git
 [submodule "public_html/docs/parsedown-extra"]
 	path = public_html/docs/parsedown-extra
 	url = https://github.com/erusev/parsedown-extra.git
