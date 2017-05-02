@@ -182,6 +182,27 @@
       </div>
     </div>
 
+    <h2>Publication</h2>
+    <div class="row">
+      <div class="col-sm-6">
+        <p>Cluster Flow has been published in F1000Research - see below for details. If you use Cluster Flow for your
+          research, please consider citing the paper.</p>
+        <blockquote>
+          <strong>Cluster Flow: A user-friendly bioinformatics workflow tool [version 2; referees: 3 approved].</strong><br/>
+          Philip Ewels, Felix Krueger, Max Käller, Simon Andrews <br/>
+          <em>F1000Research</em> 2016, <strong>5</strong>:2824 <br/>
+          doi: <a href="http://dx.doi.org/10.12688/f1000research.10335.2" target="_blank">10.12688/f1000research.10335.2</a>
+        </blockquote>
+        <!-- <script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script><div class="altmetric-embed" data-badge-type="donut" data-altmetric-id="14540519" /> -->
+        <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+        <div data-badge-details="right" data-badge-type="medium-donut" data-doi="10.12688/f1000research.6005.2" class="altmetric-embed"></div>
+
+      </div>
+      <div class="col-sm-6">
+        <iframe src="https://f1000research.com/articles/5-2824/v2" style="width:100%; height:400px; border:0;"></iframe>
+      </div>
+    </div>
+
   </div>
   
 </main>
