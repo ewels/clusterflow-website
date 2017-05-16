@@ -1,4 +1,4 @@
-0.4
+0.5
 <?php
 
 // Log version of tool that's asking

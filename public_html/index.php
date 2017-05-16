@@ -92,9 +92,9 @@
         <span class="visible-xs">&nbsp;</span>
       </div>
       <div class="col-sm-4">
-        <a class="panel-btn panel-btn-primary" href="https://github.com/ewels/clusterflow/archive/v0.4.tar.gz">
+        <a class="panel-btn panel-btn-primary" href="https://github.com/ewels/clusterflow/archive/v0.5.tar.gz">
           <i class="fa fa-download"></i><br>
-          Download v0.4
+          Download v0.5
         </a>
         <span class="visible-xs">&nbsp;</span>
       </div>
