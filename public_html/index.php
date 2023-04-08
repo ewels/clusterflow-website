@@ -19,7 +19,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
   </head>
 </html>
 
@@ -34,6 +34,16 @@
 
 <main>
   <div class="container">
+    <div class="alert alert-info" style="margin: 1rem 0 5rem;">
+      <h2 style="margin-top:0;">Cluster Flow is now archived</h2>
+      <p>
+        This project is no longer under active maintenance.
+        You're welcome to use it, but no updates or bug fixes will be posted.
+        We recommend using <a href="https://nextflow.io/" target="_blank" class="alert-link">Nextflow</a>
+        together with <a href="https://nf-co.re/" target="_blank" class="alert-link">nf-core</a> instead.
+      </p>
+      <p>Many thanks to everyone who used and supported Cluster Flow over the years.</p>
+    </div>
     <div class="row">
       <div class="col-sm-12 col-md-6 intro">
         <p class="lead">Cluster Flow is designed to be quick and easy to install,
@@ -56,7 +66,7 @@
         </ul>
       </div>
     </div>
-    
+
     <hr>
     <div class="row">
       <div class="col-md-6 intro-dl">
@@ -72,7 +82,7 @@
         <dl class="dl-horizontal">
           <dt>Flexibile</dt>
           <dd>Pipelines are fast to assemble, making it trivial to change on the fly.</dd>
-          
+
           <dt>Traceable</dt>
           <dd>Commands, software versions, everything is logged for reproducability.</dd>
 
@@ -82,7 +92,7 @@
       </div>
     </div>
     <hr>
-    
+
     <div class="row">
       <div class="col-sm-4">
         <a class="panel-btn panel-btn-info" href="docs">
@@ -105,8 +115,8 @@
         </a>
       </div>
     </div>
-    
-    
+
+
     <div class="hidden-lg hidden-md hidden-sm">
       <h2>Cluster Flow Demo</h2>
       <p>Apologies, the demo doesn't work properly on small screens. Please try again when visiting from a bigger device..</p>
@@ -115,7 +125,7 @@
       <div class="col-md-2 col-lg-3">
         <h2>Cluster Flow Demo</h2>
         <p class="lead">You can try out some basic Cluster Flow commands in this demo terminal.</p>
-          
+
         <div id="demo_instructions" class="well">
           <ol>
             <li><h4>Step 1 <span class="step-progress"><i class="fa fa-square-o"></i></span></h4> First, let's work out how to use Cluster Flow - try to display the Cluster Flow help. The main Cluster Flow command is <code>cf</code>.
@@ -204,7 +214,7 @@
     </div>
 
   </div>
-  
+
 </main>
 <footer class="container">
   Cluster Flow was written by <a href="http://phil.ewels.co.uk" target="_blank">Phil Ewels</a> whilst working at the <a href="http://www.bioinformatics.babraham.ac.uk/" target="_blank">Babraham Institute</a> and now the <a href="http://www.scilifelab.se/facilities/genomics-applications/" target="_blank">Science for Life Laboratory</a>.
@@ -247,7 +257,7 @@
     var url = 'https://www.youtube.com/embed/'+vid+'?list=PLIA2-lqNuhvH6fog0ctm5ZpdtPoUOun-l&amp;showinfo=0';
     $('#cf-video').attr('src', url);
   });
-  
+
   // Google Analytics
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
