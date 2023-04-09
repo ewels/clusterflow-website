@@ -6,24 +6,7 @@ $db = new mysqli('localhost', $dbconfig['user'], $dbconfig['password'], $dbconfi
 if($db->connect_errno != 0) die("Could not connect to database!");
 
 // Usage per week, by version
-
-$old_query = """SELECT
-  `version`,
-  COUNT(*) as `version_count`,
-  `date`
-from `version_checks`
-GROUP BY `version`, WEEK(`date`)
-ORDER BY `date` ASC, `version` ASC
-""";
-
-$query = """SELECT
-  `version`,
-  STR_TO_DATE(CONCAT(YEARWEEK(`date`,2),'0'),'%X%V%w') as `week`,
-  COUNT(*) as `version_count`
-from `version_checks`
-GROUP BY `version`, `week`
-ORDER BY `week` ASC, `version` ASC
-""";
+$query = "SELECT `version`, STR_TO_DATE(CONCAT(YEARWEEK(`date`,2),'0'),'%X%V%w') as `week`, COUNT(*) as `version_count` from `version_checks` GROUP BY `version`, `week` ORDER BY `week` ASC, `version` ASC";
 if ($result = $db->query($query)) {
     $versions_by_week = [];
     while ($row = $result->fetch_assoc()) {
@@ -36,7 +19,7 @@ if ($result = $db->query($query)) {
           'type' => 'bar'
         );
       }
-      $monday = date("Y-m-d", strtotime('last monday', strtotime($row['date'])));
+      $monday = date("Y-m-d", strtotime('last monday', strtotime($row['week'])));
       $versions_by_week[$v]['x'][] = $monday;
       $versions_by_week[$v]['y'][] = $row['version_count'];
     }
